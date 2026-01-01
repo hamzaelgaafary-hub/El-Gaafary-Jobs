@@ -37,10 +37,12 @@ class JobForm
                 ->required()
                 ->searchable()
                 ->preload(),
-                textInput::make('status')
+                select::make('tags_id')
+                ->relationship('tags', 'name')
                 ->required()
-                ->maxLength(255),
-
+                ->searchable()
+                ->preload()
+                ->maltiple(),
             ]);
     }
 }

@@ -22,18 +22,17 @@ class JobsTable
                 ->sortable()
                 ->searchable()
                 ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('location')
+                TextColumn::make('type')
+                ->badge()
                 ->sortable()
                 ->searchable(),
-                TextColumn::make('type')
+                textColumn::make('tags.name')
                 ->badge()
                 ->sortable()
                 ->searchable(),
                 TextColumn::make('employer.name')
                 ->sortable()
                 ->searchable(),
-                textColumn::make('status')
-
             ])
             ->filters([
                 //
