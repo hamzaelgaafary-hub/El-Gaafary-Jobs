@@ -13,7 +13,7 @@ class JobPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,7 +21,7 @@ class JobPolicy
      */
     public function view(User $user, job $job): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -29,7 +29,7 @@ class JobPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -37,7 +37,7 @@ class JobPolicy
      */
     public function update(User $user, job $job): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -45,7 +45,7 @@ class JobPolicy
      */
     public function delete(User $user, job $job): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -53,7 +53,7 @@ class JobPolicy
      */
     public function restore(User $user, job $job): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -61,6 +61,6 @@ class JobPolicy
      */
     public function forceDelete(User $user, job $job): bool
     {
-        return false;
+        return true;
     }
 }
