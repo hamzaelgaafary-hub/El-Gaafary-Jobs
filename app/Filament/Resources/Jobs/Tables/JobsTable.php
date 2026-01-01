@@ -26,12 +26,14 @@ class JobsTable
                 ->sortable()
                 ->searchable(),
                 TextColumn::make('type')
+                ->badge()
                 ->sortable()
                 ->searchable(),
                 TextColumn::make('employer.name')
                 ->sortable()
                 ->searchable(),
-                TextColumn::make('created_at')->dateTime(),
+                textColumn::make('status')
+
             ])
             ->filters([
                 //

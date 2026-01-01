@@ -35,6 +35,12 @@ class JobForm
                 Select::make('employer_id')
                 ->relationship('employer', 'name')
                 ->required()
+                ->searchable()
+                ->preload(),
+                textInput::make('status')
+                ->required()
+                ->maxLength(255),
+
             ]);
     }
 }
