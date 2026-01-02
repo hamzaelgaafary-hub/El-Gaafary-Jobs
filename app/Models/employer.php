@@ -7,24 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Models\user;
-use App\Models\job;
+use App\Models\User;
+use App\Models\Job;
 
-class employer extends Model
+class Employer extends Model
 {
     /** @use HasFactory<\Database\Factories\EmployerFactory> */
     use HasFactory;
 
     protected $fillable = [];
 
-    protected $taple = 'employer';
+    protected $table = 'employers';
 
-    public function user(): belongsTo
+    
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(user::class);
+        return $this->belongsTo(User::class);
     }
-    public function job(): hasMany
+
+    public function job(): HasMany
     {
-        return $this->hasMany(job::class);
+        return $this->hasMany(Job::class);
     }
 }
