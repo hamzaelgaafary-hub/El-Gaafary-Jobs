@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Jobs;
 use App\Filament\Resources\Jobs\Pages\CreateJob;
 use App\Filament\Resources\Jobs\Pages\EditJob;
 use App\Filament\Resources\Jobs\Pages\ListJobs;
+use App\Filament\Resources\Jobs\RelationManagers\TagsRelationManager;
 use App\Filament\Resources\Jobs\Schemas\JobForm;
 use App\Filament\Resources\Jobs\Tables\JobsTable;
 use App\Models\Job;
@@ -33,7 +34,7 @@ class JobResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            TagsRelationManager::class,
         ];
     }
 

@@ -6,6 +6,12 @@ use Filament\Schemas\Schema;
 use App\Models\Employer;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use App\Filament\Tables\EmployersTable;
+//use App\Filament\Resources\Jobs\Schemas\ModelTableSelect;
+use Filament\Forms\Components\ModelTableSelect;
+use Filament\Tables\Table;
+
+
 
 class JobForm
 {
@@ -32,17 +38,18 @@ class JobForm
                 TextInput::make('type')
                 ->required()
                 ->maxLength(255),
-                Select::make('employer_id')
+
+               Select::make('employer_id')
                 ->relationship('employer', 'name')
-                ->required()
-                ->searchable()
-                ->preload(),
-                select::make('tags_id')
-                ->relationship('tags', 'name')
-                ->required()
                 ->searchable()
                 ->preload()
-                ->maltiple(),
+                ->required(),
+
+                Select::make('tags_id')
+                ->relationship('tags', 'name')
+                ->searchable()
+                ->preload()
+                ->multiple(),
             ]);
     }
 }

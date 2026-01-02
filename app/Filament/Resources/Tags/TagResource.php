@@ -14,7 +14,9 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\select;
 use Filament\Tables\Table;
+use App\Models\Job;
 
 class TagResource extends Resource
 {
@@ -28,6 +30,7 @@ class TagResource extends Resource
             ->components([
                 TextInput::make('name')
                     ->required(),
+
             ]);
     }
 
@@ -37,6 +40,7 @@ class TagResource extends Resource
             ->columns([
                 TextColumn::make('name')
                     ->searchable(),
+
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -45,6 +49,8 @@ class TagResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                
+                
             ])
             ->filters([
                 //

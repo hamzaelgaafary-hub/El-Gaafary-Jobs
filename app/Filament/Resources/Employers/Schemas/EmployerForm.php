@@ -20,6 +20,8 @@ class EmployerForm
                 Select::make('user_id')
                 ->relationship('user', 'name')
                 ->required()
+                ->searchable()
+                ->preload()
             ]);
     }
 }
