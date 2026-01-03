@@ -53,9 +53,9 @@ class JobsTable
                         'internship' => 'Internship',
                     ])
                     ->label('Job Type'),
-                    
+
                 Filter::make('created_at')
-                    ->schema([ 
+                    ->schema([
                         DatePicker::make('created_from'),
                         DatePicker::make('created_until'),
                     ])
@@ -67,9 +67,9 @@ class JobsTable
                             return $query->where('created_at', '<=', $date);
                         });
                     }),
-                    
+
                 Filter::make('updated_at')
-                    ->schema([ 
+                    ->schema([
                         DatePicker::make('updated_from'),
                         DatePicker::make('updated_until'),
                     ])
@@ -81,13 +81,13 @@ class JobsTable
                             return $query->where('updated_at', '<=', $date);
                         });
                     }),
-                    
+
                 TernaryFilter::make('Featured')
                     ->label('Featured')
                     ->placeholder('All Jobs')
                     ->trueLabel('Featured Only')
                     ->falseLabel('Not Featured'),
-                 
+
                 ], layout:FiltersLayout::AboveContent)
 
 

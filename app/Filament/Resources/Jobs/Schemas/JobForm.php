@@ -38,13 +38,11 @@ class JobForm
                 TextInput::make('type')
                 ->required()
                 ->maxLength(255),
-
-               Select::make('employer_id')
+                Select::make('employer_id')
                 ->relationship('employer', 'name')
                 ->searchable()
                 ->preload()
                 ->required(),
-
                 Select::make('tags_id')
                 ->relationship('tags', 'name')
                 ->searchable()
