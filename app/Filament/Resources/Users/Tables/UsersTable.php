@@ -9,7 +9,8 @@ use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-
+use Filament\Tables\Actions\RecordActions;
+use Filament\Tables\Actions\ToolbarActions;
 
 class UsersTable
 {
@@ -21,6 +22,9 @@ class UsersTable
                     ->searchable(),
                 TextColumn::make('email')
                     ->label('Email address')
+                    ->searchable(),
+                TextColumn::make('status')
+                    ->badge()
                     ->searchable(),
                 TextColumn::make('email_verified_at')
                     ->dateTime()
@@ -45,7 +49,7 @@ class UsersTable
                     'all' => 'All',
                     'admin' => 'admin',
                     'JobSeeker' => 'JobSeeker',
-                    'Employer' => 'Employer',
+                    'employer' => 'employer',
                 ]),
             ])
             ->recordActions([

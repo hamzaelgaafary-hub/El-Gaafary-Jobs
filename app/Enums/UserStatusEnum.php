@@ -26,3 +26,4 @@ enum UserStatusEnum: string implements HasLabel, HasColor
         };
     }
 }
+

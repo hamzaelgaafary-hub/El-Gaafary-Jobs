@@ -14,6 +14,13 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Enums\FiltersLayout;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Filters\TernaryFilter;
+use Filament\Tables\Actions\RecordActions;
+use Filament\Tables\Actions\ToolbarActions;
+use App\Filament\Resources\EmployerResource;
+use Filament\Tables\Actions\Action;
+use Filament\Support\Actions\ConfirmationModal;
+use Filament\Support\heroicon;
+
 
 class JobsTable
 {
@@ -27,33 +34,48 @@ class JobsTable
                 TextColumn::make('salary')
                 ->money('USD')
                 ->sortable()
+                ->alignEnd()
                 ->searchable()
                 ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('type')
                 ->badge()
                 ->sortable()
                 ->searchable(),
-                textColumn::make('tags.name')
+                TextColumn::make('tags.name')
+                ->alignEnd()
                 ->badge()
                 ->sortable()
                 ->searchable(),
                 TextColumn::make('employer.name')
+                ->label('Employer Name')
+                //->url(fn (job $record):string => EmployerResource::getUrl('edit', ['record' => $record->employer_id]))
                 ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->openUrlInNewTab(),
+
+                
+                TextColumn::make('location')
+                ->sortable()
+                ->searchable()
+                ->toggleable(isToggledHiddenByDefault: true),
+                
+                TextColumn::make('created_at')
+                ->label('Created At')
+                ->dateTime()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('employer_id')
                     ->relationship('employer', 'name'),
                 SelectFilter::make('type')
                     ->options([
-                        'all' => 'All',
                         'full_time' => 'Full Time',
                         'part_time' => 'Part Time',
                         'contract' => 'Contract',
                         'internship' => 'Internship',
                     ])
                     ->label('Job Type'),
-
                 Filter::make('created_at')
                     ->schema([
                         DatePicker::make('created_from'),
@@ -67,7 +89,6 @@ class JobsTable
                             return $query->where('created_at', '<=', $date);
                         });
                     }),
-
                 Filter::make('updated_at')
                     ->schema([
                         DatePicker::make('updated_from'),
@@ -81,23 +102,22 @@ class JobsTable
                             return $query->where('updated_at', '<=', $date);
                         });
                     }),
-
                 TernaryFilter::make('Featured')
                     ->label('Featured')
                     ->placeholder('All Jobs')
                     ->trueLabel('Featured Only')
                     ->falseLabel('Not Featured'),
-
                 ], layout:FiltersLayout::AboveContent)
-
 
             ->recordActions([
                 EditAction::make(),
             ])
+
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('created_at', 'desc');
     }
 }

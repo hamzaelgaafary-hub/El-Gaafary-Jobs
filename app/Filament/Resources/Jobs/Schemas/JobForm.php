@@ -1,11 +1,12 @@
 <?php
-
 namespace App\Filament\Resources\Jobs\Schemas;
 
 use Filament\Schemas\Schema;
 use App\Models\Employer;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\TernaryInput;
+use Filament\Forms\Components\Radio;
 use App\Filament\Tables\EmployersTable;
 //use App\Filament\Resources\Jobs\Schemas\ModelTableSelect;
 use Filament\Forms\Components\ModelTableSelect;
@@ -20,9 +21,6 @@ class JobForm
         return $schema
             ->components([
                 TextInput::make('title')
-                ->required()
-                ->maxLength(255),
-                TextInput::make('featured')
                 ->required()
                 ->maxLength(255),
                 TextInput::make('url')
@@ -48,6 +46,21 @@ class JobForm
                 ->searchable()
                 ->preload()
                 ->multiple(),
+                TextInput::make('created_at')
+                ->label('Created At')
+                ->disabled()
+                ->dehydrated(),
+                Radio::make('featured')
+                ->label('Featured')
+                ->options([
+                    'featured' => 'Featured',
+                    'not_featured' => 'Not featured'
+                ])
+                ->descriptions([
+                    'featured' => 'Job will be featured on the homepage.',
+                    'not_featured' => 'Job will not be featured on the homepage.'
+                ])
+                ->default('not_featured'),
             ]);
     }
 }
