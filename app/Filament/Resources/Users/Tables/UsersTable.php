@@ -10,7 +10,6 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Filament\Tables\Actions\RecordActions;
-use Filament\Tables\Actions\ToolbarActions;
 
 class UsersTable
 {

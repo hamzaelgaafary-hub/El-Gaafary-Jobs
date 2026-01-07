@@ -23,9 +23,10 @@ class UserForm
                     ->options([
                         'admin' => 'admin',
                         'JobSeeker' => 'JobSeeker',
-                        'Employer' => 'Employer',
+                        'employer' => 'employer',
                     ])
                     ->required(),
+                
                 TextInput::make('Password')
                     ->password()
                     ->required(),
