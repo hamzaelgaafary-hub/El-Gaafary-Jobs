@@ -5,6 +5,8 @@ namespace App\Filament\Resources\Jobs\Pages;
 use App\Filament\Resources\Jobs\JobResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use App\Filament\Widgets\AdminStatsOverview;
+use App\Filament\Resources\Jobs\Widgets\JobStats;
 
 class ListJobs extends ListRecords
 {
@@ -14,6 +16,18 @@ class ListJobs extends ListRecords
     {
         return [
             CreateAction::make(),
+        ];
+    }
+    public function getHeaderWidgets(): array
+    {
+        return [
+           JobStats::class,
+        ];
+    }
+    public function getFooterWidgets(): array
+    {
+        return [
+           AdminStatsOverview::class,
         ];
     }
 

@@ -36,13 +36,14 @@ class UserResource extends Resource
     {
         return [
             //UserStats::class,
-            AdminStatsOverview::class,
         ];
     }
     public static function getWidgets(): array
     {
         return [
             UserStats::class,
+            AdminStatsOverview::class,
+
         ];
     }
 

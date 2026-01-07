@@ -14,6 +14,8 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use App\Filament\Resources\Jobs\Widgets\JobStats;
+use App\Filament\Widgets\AdminStatsOverview;
 
 class JobResource extends Resource
 {
@@ -35,6 +37,14 @@ class JobResource extends Resource
     {
         return [
             TagsRelationManager::class,
+        ];
+    }
+    public static function getWidgets(): array
+    {
+        return [
+            JobStats::class,
+            AdminStatsOverview::class,
+
         ];
     }
 
