@@ -33,9 +33,15 @@ class JobForm
                 TextInput::make('location')
                 ->required()
                 ->maxLength(255),
-                TextInput::make('type')
-                ->required()
-                ->maxLength(255),
+                Select::make('type')
+                ->options([ 
+                    'full_time' => 'Full Time',
+                    'part_time' => 'Part Time',
+                    'contract' => 'Contract',
+                    'internship' => 'Internship',
+                ])
+                ->label('Job Type')
+                ->required(),
                 Select::make('employer_id')
                 ->relationship('employer', 'name')
                 ->searchable()
@@ -45,7 +51,8 @@ class JobForm
                 ->relationship('tags', 'name')
                 ->searchable()
                 ->preload()
-                ->multiple(),
+                ->multiple()
+                ->required(),
                 TextInput::make('created_at')
                 ->label('Created At')
                 ->disabled()
@@ -53,14 +60,14 @@ class JobForm
                 Radio::make('featured')
                 ->label('Featured')
                 ->options([
-                    'featured' => 'Featured',
-                    'not_featured' => 'Not featured'
+                   true => 'Featured',
+                   false => 'Not featured'
                 ])
                 ->descriptions([
-                    'featured' => 'Job will be featured on the homepage.',
-                    'not_featured' => 'Job will not be featured on the homepage.'
+                    true => 'Job will be featured on the homepage.',
+                    false => 'Job will not be featured on the homepage.'
                 ])
-                ->default('not_featured'),
+                ->default(false),
             ]);
     }
 }
