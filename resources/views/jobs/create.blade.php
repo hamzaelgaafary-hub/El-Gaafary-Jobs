@@ -18,8 +18,16 @@
 
         <x-forms.divider />
 
+<<<<<<< HEAD
         <x-forms.input label="Tags (comma separated)" name="tags" placeholder="laracasts, video, education" />
 
         <x-forms.button>Publish</x-forms.button>
     </x-forms.form>
 </x-layout>
+=======
+        <x-forms.input label="Tags (comma separated)" name="Tags" placeholder="laracasts, video, education" />
+
+        <x-forms.button>Publish</x-forms.button>
+    </x-forms.form>
+</x-layout>
+>>>>>>> 328b122 (First commit from New pulled version)

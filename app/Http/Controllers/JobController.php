@@ -19,6 +19,7 @@ class JobController extends Controller
      */
     public function index()
     {
+<<<<<<< HEAD
 
         $jobs = Job::latest()->with(['employer', 'tags'])->get()->groupBy('featured');
 
@@ -29,6 +30,34 @@ class JobController extends Controller
             //@dd($jobs)
 
         ]);
+=======
+        /*
+        $jobs = Job::latest()->with(['Employer', 'Tags'])->get()->groupBy('featured');
+
+        return view('jobs.index', [
+            'Tags' => Tag::all(),
+            'featuredJobs' => Job::where('featured', 1)
+                ->latest()
+                ->with(['Employer', 'Tags'])
+                ->get(),
+            'jobs' => Job::where('featured', 0)
+                ->latest()
+                ->with(['Employer', 'Tags'])
+                ->get(),
+
+        ]);
+        */
+        $jobs = Job::latest()
+            ->with(['Employer', 'Tags'])
+            ->get()
+            ->groupBy('featured');
+
+        return view('jobs.index', [
+            'featuredJobs' => $jobs->get(1, collect()),
+            'jobs'         => $jobs->get(0, collect()),
+            'Tags'         => Tag::all(),
+        ]);
+>>>>>>> 328b122 (First commit from New pulled version)
 
     }
 
@@ -51,16 +80,28 @@ class JobController extends Controller
             'location' => ['required'],
             'type' => ['required', Rule::in(['Part Time', 'Full Time', 'Remote', 'Freelance'])],
             'url' => ['required', 'active_url'],
+<<<<<<< HEAD
             'tags' => ['nullable'],
+=======
+            'Tags' => ['nullable'],
+>>>>>>> 328b122 (First commit from New pulled version)
         ]);
 
         $attributes['featured'] = $request->has('featured');
 
+<<<<<<< HEAD
         $job = Auth::user()->employer->job()->create(Arr::except($attributes, 'tags'));
 
         if ($attributes['tags'] ?? false) {
             foreach (explode(',', $attributes['tags']) as $tag) {
                 $job->tag($tag);
+=======
+        $job = Auth::user()->Employer->job()->create(Arr::except($attributes, 'Tags'));
+
+        if ($attributes['Tags'] ?? false) {
+            foreach (explode(',', $attributes['Tags']) as $Tag) {
+                $job->Tag($Tag);
+>>>>>>> 328b122 (First commit from New pulled version)
             }
         }
 

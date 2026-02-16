@@ -4,6 +4,11 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Model;
+<<<<<<< HEAD
+=======
+use App\Models\User;
+use App\Observers\UserObserver;
+>>>>>>> 328b122 (First commit from New pulled version)
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,5 +27,11 @@ class AppServiceProvider extends ServiceProvider
     {
         
         Model::unguard();
+<<<<<<< HEAD
+=======
+        
+        User::observe(UserObserver::class);
+
+>>>>>>> 328b122 (First commit from New pulled version)
     }
 }
