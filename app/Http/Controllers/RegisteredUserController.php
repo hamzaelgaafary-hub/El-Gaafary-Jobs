@@ -30,13 +30,8 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Password::min(6)],
         ]);
 
-<<<<<<< HEAD
-        $employerAttributes = $request->validate([
-            'employer' => ['required'],
-=======
         $EmployerAttributes = $request->validate([
             'Employer' => ['required'],
->>>>>>> 328b122 (First commit from New pulled version)
             'logo' => ['required', File::types(['png', 'jpg', 'webp'])],
         ]);
 
@@ -44,13 +39,8 @@ class RegisteredUserController extends Controller
 
         $logoPath = $request->logo->store('logos');
 
-<<<<<<< HEAD
-        $user->employer()->create([
-            'name' => $employerAttributes['employer'],
-=======
         $user->Employer()->create([
             'name' => $EmployerAttributes['Employer'],
->>>>>>> 328b122 (First commit from New pulled version)
             'logo' => $logoPath,
         ]);
 //dd($user, $logoPath);

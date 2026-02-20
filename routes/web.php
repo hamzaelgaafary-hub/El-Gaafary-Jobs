@@ -11,19 +11,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [JobController::class, 'index']);
 
-<<<<<<< HEAD
-Route::get('/jobs/create', [JobController::class, 'create'])->middleware('auth');
-Route::post('/jobs', [JobController::class, 'store'])->middleware('auth');
-
-Route::get('/search', SearchController::class);
-Route::get('/tags/{tag:name}', TagController::class);
-=======
 Route::get('/Jobs/create', [JobController::class, 'create'])->middleware('auth');
 Route::post('/Jobs', [JobController::class, 'store'])->middleware('auth');
 
 Route::get('/search', SearchController::class);
 Route::get('/Tags/{Tag:name}', TagController::class);
->>>>>>> 328b122 (First commit from New pulled version)
 
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisteredUserController::class, 'create']);

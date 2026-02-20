@@ -22,13 +22,8 @@
             <x-section-heading>Tags</x-section-heading>
 
             <div class="mt-6 space-x-1">
-<<<<<<< HEAD
-                @foreach($tags as $tag)
-                    <x-tag :$tag />
-=======
                 @foreach($Tags as $Tag)
                     <x-Tag :$Tag />
->>>>>>> 328b122 (First commit from New pulled version)
                 @endforeach
             </div>
         </section>
@@ -44,12 +39,6 @@
         </section>
     </div>
     <div class="mt-6">
-<<<<<<< HEAD
-         
-    </div>
-</x-layout>
-=======
 
     </div>
 </x-layout>
->>>>>>> 328b122 (First commit from New pulled version)

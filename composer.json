@@ -3,19 +3,6 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
-<<<<<<< HEAD
-    "keywords": [
-        "laravel",
-        "framework"
-    ],
-    "license": "MIT",
-    "require": {
-        "php": "^8.2",
-        "laravel/framework": "^12.0",
-        "laravel/tinker": "^2.10.1"
-    },
-    "require-dev": {
-=======
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
@@ -28,7 +15,6 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.16",
->>>>>>> 328b122 (First commit from New pulled version)
         "fakerphp/faker": "^1.23",
         "laravel/pail": "^1.2.2",
         "laravel/pint": "^1.24",
@@ -53,18 +39,11 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-<<<<<<< HEAD
-            "@php artisan package:discover --ansi"
-        ],
-        "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
-=======
             "@php artisan package:discover --ansi",
             "@php artisan filament:upgrade"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --Tag=laravel-assets --ansi --force"
->>>>>>> 328b122 (First commit from New pulled version)
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
@@ -99,8 +78,4 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 328b122 (First commit from New pulled version)

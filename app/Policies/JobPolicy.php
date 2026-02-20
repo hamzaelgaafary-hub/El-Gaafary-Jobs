@@ -13,11 +13,7 @@ class JobPolicy
      */
     public function viewAny(User $user): bool
     {
-<<<<<<< HEAD
-        return false;
-=======
         return true;
->>>>>>> 328b122 (First commit from New pulled version)
     }
 
     /**
@@ -25,11 +21,7 @@ class JobPolicy
      */
     public function view(User $user, job $job): bool
     {
-<<<<<<< HEAD
-        return false;
-=======
         return true;
->>>>>>> 328b122 (First commit from New pulled version)
     }
 
     /**
@@ -37,11 +29,7 @@ class JobPolicy
      */
     public function create(User $user): bool
     {
-<<<<<<< HEAD
-        return false;
-=======
         return true;
->>>>>>> 328b122 (First commit from New pulled version)
     }
 
     /**
@@ -49,11 +37,7 @@ class JobPolicy
      */
     public function update(User $user, job $job): bool
     {
-<<<<<<< HEAD
-        return false;
-=======
         return true;
->>>>>>> 328b122 (First commit from New pulled version)
     }
 
     /**
@@ -61,11 +45,7 @@ class JobPolicy
      */
     public function delete(User $user, job $job): bool
     {
-<<<<<<< HEAD
-        return false;
-=======
         return true;
->>>>>>> 328b122 (First commit from New pulled version)
     }
 
     /**
@@ -73,11 +53,7 @@ class JobPolicy
      */
     public function restore(User $user, job $job): bool
     {
-<<<<<<< HEAD
-        return false;
-=======
         return true;
->>>>>>> 328b122 (First commit from New pulled version)
     }
 
     /**
@@ -85,10 +61,6 @@ class JobPolicy
      */
     public function forceDelete(User $user, job $job): bool
     {
-<<<<<<< HEAD
-        return false;
-=======
         return true;
->>>>>>> 328b122 (First commit from New pulled version)
     }
 }

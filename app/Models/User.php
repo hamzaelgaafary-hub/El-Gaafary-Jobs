@@ -3,16 +3,6 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-<<<<<<< HEAD
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-
-class User extends Authenticatable
-{
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
-=======
 
 use App\Enums\UserStatusEnum;
 
@@ -27,7 +17,6 @@ class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasRoles;
->>>>>>> 328b122 (First commit from New pulled version)
 
     /**
      * The attributes that are mass assignable.
@@ -37,10 +26,7 @@ class User extends Authenticatable implements FilamentUser
     protected $fillable = [
         'name',
         'email',
-<<<<<<< HEAD
-=======
         'status',
->>>>>>> 328b122 (First commit from New pulled version)
         'password',
     ];
 
@@ -54,13 +40,10 @@ class User extends Authenticatable implements FilamentUser
         'remember_token',
     ];
 
-<<<<<<< HEAD
-=======
     protected $casts =[
         'status' => UserStatusEnum::class,  
     ];
 
->>>>>>> 328b122 (First commit from New pulled version)
     /**
      * Get the attributes that should be cast.
      *
@@ -73,12 +56,6 @@ class User extends Authenticatable implements FilamentUser
             'password' => 'hashed',
         ];
     }
-<<<<<<< HEAD
-    public function employer()
-    {
-        return $this->hasOne(Employer::class);
-    }
-=======
     public function Employer()
     {
         return $this->hasOne(Employer::class);
@@ -108,5 +85,4 @@ class User extends Authenticatable implements FilamentUser
         */
     }
 
->>>>>>> 328b122 (First commit from New pulled version)
 }
