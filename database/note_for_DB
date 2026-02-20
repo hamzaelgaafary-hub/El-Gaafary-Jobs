@@ -1,0 +1,25 @@
+Step 1 – Migrations
+جدولان: employers (مرتبط بـ users) و jobs (مرتبط بـ employers) مع كل الـ columns اللازمة.
+Step 2 – Models & Relations
+
+User → hasOne(Employer) + implements FilamentUser + HasRoles trait
+Employer → belongsTo(User) + hasMany(Job)
+Job → belongsTo(Employer)
+canAccessPanel() تمنع كل role من الوصول لغير الـ panel الخاص به
+
+Step 3 – UserObserver
+يستمع على saved() ويتحقق من wasChanged('status') — عند التغيير لـ employer يُنفّذ syncRoles() تلقائياً وينشئ سجل Employer بـ firstOrCreate.
+Step 4 – Seeder
+Permissions: view_jobs, create_jobs, edit_jobs, delete_jobs, apply_jobs, manage_users — موزّعة على Roles: admin, employer, jobseeker.
+Step 5 – EmployerPanelProvider
+Panel منفصل على مسار /employer مع ->login() وربط الـ Resources والـ Pages.
+Step 6 – EmployerProfile Page
+صفحة Filament مخصصة لعرض وتعديل بيانات الشركة مع FileUpload للـ logo وmutateFormDataBeforeCreate.
+Step 7 – JobResource (CRUD كامل)
+
+getEloquentQuery() يُقيّد النتائج بوظائف صاحب العمل الحالي فقط
+canEdit/canDelete تتحقق من الـ Spatie permission والملكية معاً
+mutateFormDataBeforeCreate تحقن employer_id تلقائياً
+
+Step 8 – JobPolicy
+before() يمنح Admin صلاحية كاملة، باقي الـ methods تجمع بين Spatie permission وفحص الملكية.
