@@ -26,6 +26,10 @@ class JobseekerPanelProvider extends PanelProvider
         return $panel
             ->id('jobseeker')
             ->path('jobseeker')
+            ->login()
+            ->colors([
+                'primary' => Color::Indigo,
+            ])
             ->colors([
                 'primary' => Color::Amber,
             ])

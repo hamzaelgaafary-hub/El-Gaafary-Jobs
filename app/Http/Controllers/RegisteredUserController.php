@@ -13,7 +13,6 @@ class RegisteredUserController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-
     public function create()
     {
         return view('auth.register');
@@ -43,7 +42,7 @@ class RegisteredUserController extends Controller
             'name' => $EmployerAttributes['Employer'],
             'logo' => $logoPath,
         ]);
-//dd($user, $logoPath);
+        // dd($user, $logoPath);
         Auth::login($user);
 
         return redirect('/');

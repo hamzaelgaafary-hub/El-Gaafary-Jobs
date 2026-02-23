@@ -2,9 +2,8 @@
 
 namespace App\Filament\Resources\Users\Schemas;
 
-use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
 class UserForm
@@ -21,12 +20,12 @@ class UserForm
                     ->email(),
                 Select::make('status')
                     ->options([
-                        'admin' => 'admin',
+                        'Admin' => 'Admin',
                         'JobSeeker' => 'JobSeeker',
                         'Employer' => 'Employer',
                     ])
                     ->required(),
-                
+
                 TextInput::make('Password')
                     ->password()
                     ->required(),

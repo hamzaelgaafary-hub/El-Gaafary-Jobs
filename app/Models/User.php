@@ -5,18 +5,17 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Enums\UserStatusEnum;
-
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Filament\Models\Contracts\FilamentUser;
 use Spatie\Permission\Traits\HasRoles;
-use Filament\Panel;
 
 class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, HasRoles, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -40,8 +39,8 @@ class User extends Authenticatable implements FilamentUser
         'remember_token',
     ];
 
-    protected $casts =[
-        'status' => UserStatusEnum::class,  
+    protected $casts = [
+        'status' => UserStatusEnum::class,
     ];
 
     /**
@@ -56,6 +55,7 @@ class User extends Authenticatable implements FilamentUser
             'password' => 'hashed',
         ];
     }
+
     public function Employer()
     {
         return $this->hasOne(Employer::class);
@@ -63,26 +63,8 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        if ($panel->getId() === 'admin') {
-            return $this->hasRole('admin') && $this->status === 'admin';
-        }
-
-        if ($panel->getId() === 'employer') {
-            return $this->hasRole('employer') && $this->status === 'employer';
-        }
-        if ($panel->getId() === 'jobseeker') {
-            return $this->hasRole('jobseeker') && $this->status === 'jobseeker';
-        }
-
-        return false;
-        /*
-        return match ($panel->getId()) {
-                    'admin'     => $this->hasRole('admin'),
-                    'employer'  => $this->hasRole('employer'),
-                    'jobseeker' => $this->hasRole('jobseeker'),
-                    default     => false,
-                };    
-        */
+        return $this->email === 'admin@admin.com' 
+        || $this->hasRole('Employer') 
+        ||$this->email === 'employer@employer.com' ;
     }
-
 }

@@ -2,12 +2,12 @@
 
 namespace App\Providers\Filament;
 
+use App\Models\Employer;
 use Filament\Http\Middleware\Authenticate;
-use Filament\Http\Middleware\AuthenticateSession;
+use Illuminate\Session\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages\Dashboard;
-use App\Models\Employer;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -19,20 +19,21 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Spatie\Permission\Traits\HasRoles;
 
 class EmployerPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->id('employer')
-            ->path('employer')
+            ->id('Employer')
+            ->path('Employer')
             ->login()
-            ->tenant(Employer::class) //multi-tenancy per employer
+            // ->hasRoles( )
             ->authGuard('web')
             ->colors([
                 'primary' => Color::Amber,
-                
+
             ])
             ->discoverResources(in: app_path('Filament/Employer/Resources'), for: 'App\Filament\Employer\Resources')
             ->discoverPages(in: app_path('Filament/Employer/Pages'), for: 'App\Filament\Employer\Pages')
@@ -57,7 +58,6 @@ class EmployerPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-                'role:employer',
             ]);
     }
 }

@@ -10,7 +10,7 @@ canAccessPanel() تمنع كل role من الوصول لغير الـ panel ال
 Step 3 – UserObserver
 يستمع على saved() ويتحقق من wasChanged('status') — عند التغيير لـ employer يُنفّذ syncRoles() تلقائياً وينشئ سجل Employer بـ firstOrCreate.
 Step 4 – Seeder
-Permissions: view_jobs, create_jobs, edit_jobs, delete_jobs, apply_jobs, manage_users — موزّعة على Roles: admin, employer, jobseeker.
+Permissions: view_jobs, create_jobs, edit_jobs, delete_jobs, apply_jobs, manage_users — موزّعة على Roles: Admin, employer, jobseeker.
 Step 5 – EmployerPanelProvider
 Panel منفصل على مسار /employer مع ->login() وربط الـ Resources والـ Pages.
 Step 6 – EmployerProfile Page

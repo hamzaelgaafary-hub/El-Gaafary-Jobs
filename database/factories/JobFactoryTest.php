@@ -13,8 +13,6 @@ class JobFactoryTest extends TestCase
 
     /**
      * Test that the JobFactory can create a job.
-     *
-     * @return void
      */
     public function test_it_can_create_a_job(): void
     {

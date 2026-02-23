@@ -2,13 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Employer;
-use App\Models\job;
-use App\Models\User;
-use App\Models\Tag;
-//  use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Enums\UserStatusEnum;
+//  use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,9 +15,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory()->create([
-            'name' => 'Test admin',
+            'name' => 'Test Admin',
             'email' => 'admin@admin.com',
-            'status' => UserStatusEnum::admin->value,
+            'status' => UserStatusEnum::Admin->value,
             'password' => '123456789',
         ]);
         User::factory()->create([
@@ -36,6 +33,7 @@ class DatabaseSeeder extends Seeder
             'password' => '123456789',
         ]);
         $this->call(JobSeeder::class);
-        
-    }   
+        $this->call(RolesAndPermissionsSeeder::class);
+
+    }
 }

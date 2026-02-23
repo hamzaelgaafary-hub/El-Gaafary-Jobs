@@ -8,14 +8,14 @@ use App\Filament\Resources\Jobs\Pages\ListJobs;
 use App\Filament\Resources\Jobs\RelationManagers\TagsRelationManager;
 use App\Filament\Resources\Jobs\Schemas\JobForm;
 use App\Filament\Resources\Jobs\Tables\JobsTable;
+use App\Filament\Resources\Jobs\Widgets\JobStats;
+use App\Filament\Widgets\AdminStatsOverview;
 use App\Models\Job;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use App\Filament\Resources\Jobs\Widgets\JobStats;
-use App\Filament\Widgets\AdminStatsOverview;
 
 class JobResource extends Resource
 {
@@ -39,6 +39,7 @@ class JobResource extends Resource
             TagsRelationManager::class,
         ];
     }
+
     public static function getWidgets(): array
     {
         return [

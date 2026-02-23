@@ -7,14 +7,14 @@ use App\Filament\Resources\Users\Pages\EditUser;
 use App\Filament\Resources\Users\Pages\ListUsers;
 use App\Filament\Resources\Users\Schemas\UserForm;
 use App\Filament\Resources\Users\Tables\UsersTable;
+use App\Filament\Resources\Users\Widgets\UserStats;
+use App\Filament\Widgets\AdminStatsOverview;
 use App\Models\User;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use App\Filament\Resources\Users\Widgets\UserStats;
-use App\Filament\Widgets\AdminStatsOverview;
 
 class UserResource extends Resource
 {
@@ -35,9 +35,10 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //UserStats::class,
+            // UserStats::class,
         ];
     }
+
     public static function getWidgets(): array
     {
         return [

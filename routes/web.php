@@ -7,8 +7,6 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
-
-
 Route::get('/', [JobController::class, 'index']);
 
 Route::get('/Jobs/create', [JobController::class, 'create'])->middleware('auth');

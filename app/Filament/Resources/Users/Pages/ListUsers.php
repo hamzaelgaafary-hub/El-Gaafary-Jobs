@@ -22,13 +22,14 @@ class ListUsers extends ListRecords
     public function getHeaderWidgets(): array
     {
         return [
-           UserStats::class,
+            UserStats::class,
         ];
     }
+
     public function getFooterWidgets(): array
     {
         return [
-           AdminStatsOverview::class,
+            AdminStatsOverview::class,
         ];
     }
 

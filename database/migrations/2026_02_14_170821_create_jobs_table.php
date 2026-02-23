@@ -1,9 +1,9 @@
 <?php
 
+use App\Models\Employer;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\Employer;
 
 return new class extends Migration
 {
@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('jobs', function (Blueprint $table) {
-            $table->engine = 'InnoDB'; 
+            $table->engine = 'InnoDB';
             $table->id();
             $table->foreignIdFor(Employer::class);
             $table->string('title');

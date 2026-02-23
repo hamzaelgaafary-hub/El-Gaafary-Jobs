@@ -4,8 +4,6 @@ namespace App\Filament\Widgets;
 
 use App\Models\User;
 use Filament\Widgets\ChartWidget;
-use Flowframe\Trend\Trend;
-use Flowframe\Trend\TrendValue;
 
 class UserChart extends ChartWidget
 {
@@ -13,7 +11,7 @@ class UserChart extends ChartWidget
 
     protected function getData(): array
     {
-        $adminCount = User::where('status', 'admin')->count();
+        $AdminCount = User::where('status', 'Admin')->count();
         $jobSeekerCount = User::where('status', 'JobSeeker')->count();
         $EmployerCount = User::where('status', 'Employer')->count();
 
@@ -21,7 +19,7 @@ class UserChart extends ChartWidget
             'datasets' => [
                 [
                     'label' => 'All Of Users',
-                    'data' => [$adminCount, $jobSeekerCount, $EmployerCount],
+                    'data' => [$AdminCount, $jobSeekerCount, $EmployerCount],
                     'backgroundColor' => [
                         '#ef4444', // Red for Admin
                         '#3b82f6', // Blue for JobSeeker

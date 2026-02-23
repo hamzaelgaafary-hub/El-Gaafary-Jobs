@@ -10,8 +10,6 @@ use App\Filament\Employer\Resources\Employers\Schemas\EmployerForm;
 use App\Filament\Employer\Resources\Employers\Schemas\EmployerInfolist;
 use App\Filament\Employer\Resources\Employers\Tables\EmployersTable;
 use App\Models\Employer;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Auth;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -45,15 +43,18 @@ class EmployerResource extends Resource
             //
         ];
     }
-    public static function getEloquentQuery(): Builder
-    {
-        // المستخدم يرى فقط سجل شركتة الخاصة
-        return parent::getEloquentQuery()->where('user_id', auth()->id());
-    }
 
     // إخفاء زر "إنشاء" و "حذف" لأن السجل يُنشأ تلقائياً عبر الـ Observer
-    public static function canCreate(): bool { return false; }
-    public static function canDelete($record): bool { return false; }
+    public static function canCreate(): bool
+    {
+        return false;
+    }
+
+    public static function canDelete($record): bool
+    {
+        return false;
+    }
+
     public static function getPages(): array
     {
         return [

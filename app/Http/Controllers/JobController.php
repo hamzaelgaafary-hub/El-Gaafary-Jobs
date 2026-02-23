@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Job;
 use App\Models\Tag;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class JobController extends Controller
@@ -42,8 +39,8 @@ class JobController extends Controller
 
         return view('jobs.index', [
             'featuredJobs' => $jobs->get(1, collect()),
-            'jobs'         => $jobs->get(0, collect()),
-            'Tags'         => Tag::all(),
+            'jobs' => $jobs->get(0, collect()),
+            'Tags' => Tag::all(),
         ]);
 
     }

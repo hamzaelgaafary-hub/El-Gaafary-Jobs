@@ -2,12 +2,12 @@
 
 namespace App\Enums;
 
-use \Filament\Support\Contracts\HasLabel;
-use \Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasLabel;
 
-enum UserStatusEnum: string implements HasLabel, HasColor
+enum UserStatusEnum: string implements HasColor, HasLabel
 {
-    case admin = 'admin';
+    case Admin = 'Admin';
     case Employer = 'Employer';
     case JobSeeker = 'JobSeeker';
 
@@ -18,12 +18,11 @@ enum UserStatusEnum: string implements HasLabel, HasColor
 
     public function getColor(): string
     {
-        return match($this) {
-            self::admin => 'danger',
+        return match ($this) {
+            self::Admin => 'danger',
             self::Employer => 'warning',
             self::JobSeeker => 'success',
             default => 'gray',
         };
     }
 }
-

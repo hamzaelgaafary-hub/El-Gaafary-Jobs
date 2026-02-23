@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('job_tag', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('job_id')->constrained('jobs')->cascadeOnDelete();
-            $table->foreignId('tag_id')->constrained('tags')->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\Job::class)->constrained('jobs')->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\Tag::class)->constrained('tags')->cascadeOnDelete();
             $table->timestamps();
         });
-        
+
     }
+
     /**
      * Reverse the migrations.
      */
