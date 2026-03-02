@@ -48,9 +48,7 @@ class EmployerJobsTable
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('Employer.name')
                     ->label('Employer Name')
-                    // ->url(fn (job $record):string => EmployerResource::getUrl('edit', ['record' => $record->Employer_id]))
                     ->sortable()
-                    ->searchable()
                     ->openUrlInNewTab()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('location')
@@ -64,8 +62,6 @@ class EmployerJobsTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                SelectFilter::make('Employer_id')
-                    ->relationship('Employer', 'name'),
                 SelectFilter::make('type')
                     ->options([
                         'full_time' => 'Full Time',

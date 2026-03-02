@@ -6,6 +6,8 @@ use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 
 class EmployerJobForm
 {
@@ -36,10 +38,14 @@ class EmployerJobForm
                     ->label('Job Type')
                     ->required(),
                 Select::make('Employer_id')
-                    ->relationship('Employer', 'name')
+                ->relationship(
+                        name: 'employer', // This must match the relationship method name on your current model
+                        titleAttribute: 'name', // The column name you want to display in the dropdown
+                        modifyQueryUsing: fn (Builder $query) => $query->where('user_id', auth::id())
+                    )                    
                     ->searchable()
                     ->preload()
-                    ->required(),
+                    ->default(Auth::user()->Employer->id),
                 Select::make('Tags_id')
                     ->relationship('Tags', 'name')
                     ->searchable()

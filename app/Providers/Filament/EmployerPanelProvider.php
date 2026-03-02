@@ -2,7 +2,7 @@
 
 namespace App\Providers\Filament;
 
-use App\Models\Employer;
+use App\Http\Middleware\Checkrole;
 use Filament\Http\Middleware\Authenticate;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -19,7 +19,11 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Spatie\Permission\Traits\HasRoles;
+use Joaopaulolndev\FilamentEditProfile\FilamentEditProfilePlugin;
+use Filament\Navigation\MenuItem;
+use Joaopaulolndev\FilamentEditProfile\Pages\EditProfilePage;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class EmployerPanelProvider extends PanelProvider
 {
@@ -31,10 +35,11 @@ class EmployerPanelProvider extends PanelProvider
             ->login()
             // ->hasRoles( )
             ->authGuard('web')
+            //->profile()
             ->colors([
                 'primary' => Color::Amber,
-
             ])
+
             ->discoverResources(in: app_path('Filament/Employer/Resources'), for: 'App\Filament\Employer\Resources')
             ->discoverPages(in: app_path('Filament/Employer/Pages'), for: 'App\Filament\Employer\Pages')
             ->pages([
@@ -55,6 +60,8 @@ class EmployerPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                Checkrole::class.':Employer',
+
             ])
             ->authMiddleware([
                 Authenticate::class,

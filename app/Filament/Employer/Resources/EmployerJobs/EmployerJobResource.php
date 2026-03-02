@@ -7,7 +7,6 @@ use App\Filament\Employer\Resources\EmployerJobs\Pages\EditEmployerJob;
 use App\Filament\Employer\Resources\EmployerJobs\Pages\ListEmployerJobs;
 use App\Filament\Employer\Resources\EmployerJobs\Schemas\EmployerJobForm;
 use App\Filament\Employer\Resources\EmployerJobs\Tables\EmployerJobsTable;
-use App\Models\Employer;
 use App\Models\Job;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -15,6 +14,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 
 class EmployerJobResource extends Resource
 {
@@ -36,7 +36,16 @@ class EmployerJobResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return EmployerJobsTable::configure($table);
+    
+        // show every job that belongs to an employer record owned by
+        // the current user. this is important when the user has multiple
+        // employer profiles – previously we only scoped to the *first* employer
+        // id which could hide other jobs.
+        return EmployerJobsTable::configure($table)
+            ->modifyQueryUsing(fn (Builder $query) =>
+                $query->whereHas('Employer', fn (Builder $q) =>
+                    $q->where('user_id', Auth::id())));
+     
     }
 
     public static function getRelations(): array
@@ -44,6 +53,12 @@ class EmployerJobResource extends Resource
         return [
             //
         ];
+    }
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['Employer_id'] = Auth::user()->Employer->id;
+        return $data;
     }
 
     public static function getPages(): array
@@ -54,6 +69,8 @@ class EmployerJobResource extends Resource
             'edit' => EditEmployerJob::route('/{record}/edit'),
         ];
     }
+
+    
     /*
     public static function canCreate(): bool
     {

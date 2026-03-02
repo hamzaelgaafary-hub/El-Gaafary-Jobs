@@ -19,14 +19,14 @@ class JobFactoryTest extends TestCase
         $job = Job::factory()->create();
 
         $this->assertInstanceOf(Job::class, $job);
-        $this->assertInstanceOf(Employer::class, $job->employer);
+        $this->assertInstanceOf(Employer::class, $job->Employer);
 
         $this->assertDatabaseHas('jobs', [
             'id' => $job->id,
             'title' => $job->title,
             'salary' => $job->salary,
             'location' => $job->location,
-            'employer_id' => $job->employer_id,
+            'Employer_id' => $job->Employer_id,
         ]);
     }
 }

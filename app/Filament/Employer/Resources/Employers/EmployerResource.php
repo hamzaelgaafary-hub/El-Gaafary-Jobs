@@ -11,20 +11,30 @@ use App\Filament\Employer\Resources\Employers\Schemas\EmployerInfolist;
 use App\Filament\Employer\Resources\Employers\Tables\EmployersTable;
 use App\Models\Employer;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class EmployerResource extends Resource
 {
     protected static ?string $model = Employer::class;
-
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static ?string $navigationLabel = 'My Profiles';
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUserCircle;
+    protected static string|UnitEnum|null $navigationGroup = 'Profile Management';
 
     public static function form(Schema $schema): Schema
     {
         return EmployerForm::configure($schema);
+    }
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['Employer_id'] = Auth::user()->Employer->id;
+        return $data;
     }
 
     public static function infolist(Schema $schema): Schema
@@ -34,7 +44,9 @@ class EmployerResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return EmployersTable::configure($table);
+    return EmployersTable::configure($table)
+        ->modifyQueryUsing(fn (Builder $query) 
+            => $query->where('user_id', auth::id()));  
     }
 
     public static function getRelations(): array
@@ -43,14 +55,7 @@ class EmployerResource extends Resource
             //
         ];
     }
-
-    // إخفاء زر "إنشاء" و "حذف" لأن السجل يُنشأ تلقائياً عبر الـ Observer
-    public static function canCreate(): bool
-    {
-        return false;
-    }
-
-    public static function canDelete($record): bool
+    public static function canDeleteAny(): bool
     {
         return false;
     }

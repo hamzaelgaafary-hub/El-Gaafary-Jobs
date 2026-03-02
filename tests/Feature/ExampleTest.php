@@ -16,7 +16,7 @@ test('example', function () {
 it('belongs to an Employer', function () {
     $Employer = Employer::factory()->create();
     $job = Job::factory()->create([
-        'employer_id' => $Employer->id,
+        'Employer_id' => $Employer->id,
     ]);
     expect($job->Employer->is($Employer))->toBeTrue();
 });

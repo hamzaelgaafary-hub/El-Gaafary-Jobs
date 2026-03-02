@@ -30,7 +30,7 @@ class RolesAndPermissionsTest extends TestCase
             'delete_jobs',
             'apply_jobs',
             'manage_users',
-            'manage_employers_profiles',
+            'manage_Employers_profiles',
         ];
 
         foreach ($expectedPermissions as $permission) {
@@ -39,9 +39,9 @@ class RolesAndPermissionsTest extends TestCase
         }
     }
 
-    public function test_admin_has_all_permissions(): void
+    public function test_Admin_has_all_permissions(): void
     {
-        $adminRole = Role::where('name', 'Admin')->first();
+        $AdminRole = Role::where('name', 'Admin')->first();
 
         $expectedPermissions = [
             'view_jobs',
@@ -50,36 +50,36 @@ class RolesAndPermissionsTest extends TestCase
             'delete_jobs',
             'apply_jobs',
             'manage_users',
-            'manage_employers_profiles',
+            'manage_Employers_profiles',
         ];
 
         foreach ($expectedPermissions as $permission) {
-            expect($adminRole->hasPermissionTo($permission))
+            expect($AdminRole->hasPermissionTo($permission))
                 ->toBeTrue("Admin role should have '{$permission}' permission");
         }
 
-        expect($adminRole->permissions()->count())
+        expect($AdminRole->permissions()->count())
             ->toBe(count($expectedPermissions), 'Admin should have all permissions');
     }
 
-    public function test_employer_has_correct_permissions(): void
+    public function test_Employer_has_correct_permissions(): void
     {
-        $employerRole = Role::where('name', 'Employer')->first();
+        $EmployerRole = Role::where('name', 'Employer')->first();
 
         $expectedPermissions = ['view_jobs', 'create_jobs', 'edit_jobs', 'delete_jobs'];
 
         foreach ($expectedPermissions as $permission) {
-            expect($employerRole->hasPermissionTo($permission))
+            expect($EmployerRole->hasPermissionTo($permission))
                 ->toBeTrue("Employer role should have '{$permission}' permission");
         }
 
-        $unexpectedPermissions = ['apply_jobs', 'manage_users', 'manage_employers_profiles'];
+        $unexpectedPermissions = ['apply_jobs', 'manage_users', 'manage_Employers_profiles'];
         foreach ($unexpectedPermissions as $permission) {
-            expect($employerRole->hasPermissionTo($permission))
+            expect($EmployerRole->hasPermissionTo($permission))
                 ->toBeFalse("Employer role should NOT have '{$permission}' permission");
         }
 
-        expect($employerRole->permissions()->count())
+        expect($EmployerRole->permissions()->count())
             ->toBe(count($expectedPermissions), 'Employer should have exactly 4 permissions');
     }
 
@@ -94,7 +94,7 @@ class RolesAndPermissionsTest extends TestCase
                 ->toBeTrue("JobSeeker role should have '{$permission}' permission");
         }
 
-        $unexpectedPermissions = ['create_jobs', 'edit_jobs', 'delete_jobs', 'manage_users', 'manage_employers_profiles'];
+        $unexpectedPermissions = ['create_jobs', 'edit_jobs', 'delete_jobs', 'manage_users', 'manage_Employers_profiles'];
         foreach ($unexpectedPermissions as $permission) {
             expect($jobseekerRole->hasPermissionTo($permission))
                 ->toBeFalse("JobSeeker role should NOT have '{$permission}' permission");
@@ -104,34 +104,34 @@ class RolesAndPermissionsTest extends TestCase
             ->toBe(count($expectedPermissions), 'JobSeeker should have exactly 2 permissions');
     }
 
-    public function test_user_with_admin_role_can_perform_actions(): void
+    public function test_user_with_Admin_role_can_perform_actions(): void
     {
-        $admin = User::factory()->create();
-        $admin->assignRole('Admin');
+        $Admin = User::factory()->create();
+        $Admin->assignRole('Admin');
 
-        expect($admin->hasRole('Admin'))->toBeTrue();
-        expect($admin->hasPermissionTo('view_jobs'))->toBeTrue();
-        expect($admin->hasPermissionTo('create_jobs'))->toBeTrue();
-        expect($admin->hasPermissionTo('edit_jobs'))->toBeTrue();
-        expect($admin->hasPermissionTo('delete_jobs'))->toBeTrue();
-        expect($admin->hasPermissionTo('apply_jobs'))->toBeTrue();
-        expect($admin->hasPermissionTo('manage_users'))->toBeTrue();
-        expect($admin->hasPermissionTo('manage_employers_profiles'))->toBeTrue();
+        expect($Admin->hasRole('Admin'))->toBeTrue();
+        expect($Admin->hasPermissionTo('view_jobs'))->toBeTrue();
+        expect($Admin->hasPermissionTo('create_jobs'))->toBeTrue();
+        expect($Admin->hasPermissionTo('edit_jobs'))->toBeTrue();
+        expect($Admin->hasPermissionTo('delete_jobs'))->toBeTrue();
+        expect($Admin->hasPermissionTo('apply_jobs'))->toBeTrue();
+        expect($Admin->hasPermissionTo('manage_users'))->toBeTrue();
+        expect($Admin->hasPermissionTo('manage_Employers_profiles'))->toBeTrue();
     }
 
-    public function test_user_with_employer_role_can_perform_actions(): void
+    public function test_user_with_Employer_role_can_perform_actions(): void
     {
-        $employer = User::factory()->create();
-        $employer->assignRole('Employer');
+        $Employer = User::factory()->create();
+        $Employer->assignRole('Employer');
 
-        expect($employer->hasRole('Employer'))->toBeTrue();
-        expect($employer->hasPermissionTo('view_jobs'))->toBeTrue();
-        expect($employer->hasPermissionTo('create_jobs'))->toBeTrue();
-        expect($employer->hasPermissionTo('edit_jobs'))->toBeTrue();
-        expect($employer->hasPermissionTo('delete_jobs'))->toBeTrue();
-        expect($employer->hasPermissionTo('apply_jobs'))->toBeFalse();
-        expect($employer->hasPermissionTo('manage_users'))->toBeFalse();
-        expect($employer->hasPermissionTo('manage_employers_profiles'))->toBeFalse();
+        expect($Employer->hasRole('Employer'))->toBeTrue();
+        expect($Employer->hasPermissionTo('view_jobs'))->toBeTrue();
+        expect($Employer->hasPermissionTo('create_jobs'))->toBeTrue();
+        expect($Employer->hasPermissionTo('edit_jobs'))->toBeTrue();
+        expect($Employer->hasPermissionTo('delete_jobs'))->toBeTrue();
+        expect($Employer->hasPermissionTo('apply_jobs'))->toBeFalse();
+        expect($Employer->hasPermissionTo('manage_users'))->toBeFalse();
+        expect($Employer->hasPermissionTo('manage_Employers_profiles'))->toBeFalse();
     }
 
     public function test_user_with_jobseeker_role_can_perform_actions(): void
@@ -146,6 +146,6 @@ class RolesAndPermissionsTest extends TestCase
         expect($jobseeker->hasPermissionTo('edit_jobs'))->toBeFalse();
         expect($jobseeker->hasPermissionTo('delete_jobs'))->toBeFalse();
         expect($jobseeker->hasPermissionTo('manage_users'))->toBeFalse();
-        expect($jobseeker->hasPermissionTo('manage_employers_profiles'))->toBeFalse();
+        expect($jobseeker->hasPermissionTo('manage_Employers_profiles'))->toBeFalse();
     }
 }

@@ -53,6 +53,7 @@ class JobseekerPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                'Role:JobSeeker',
             ])
             ->authMiddleware([
                 Authenticate::class,

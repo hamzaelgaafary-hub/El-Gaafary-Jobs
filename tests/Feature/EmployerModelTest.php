@@ -9,20 +9,20 @@ uses(RefreshDatabase::class);
 
 it('has a user relationship and returns the correct user', function () {
     $user = User::factory()->create();
-    $employer = Employer::factory()->create(['user_id' => $user->id]);
+    $Employer = Employer::factory()->create(['user_id' => $user->id]);
 
-    $this->assertTrue($employer->user()->exists());
-    $this->assertEquals($user->id, $employer->user->id);
+    $this->assertTrue($Employer->user()->exists());
+    $this->assertEquals($user->id, $Employer->user->id);
 });
 
 it('has many jobs and the association works', function () {
-    $employer = Employer::factory()->create();
+    $Employer = Employer::factory()->create();
 
     // Create jobs that explicitly set the expected foreign key
-    $jobA = Job::factory()->create(['employer_id' => $employer->id]);
-    $jobB = Job::factory()->create(['employer_id' => $employer->id]);
+    $jobA = Job::factory()->create(['Employer_id' => $Employer->id]);
+    $jobB = Job::factory()->create(['Employer_id' => $Employer->id]);
 
-    $jobs = $employer->job; // note: relationship defined as `job()` in model
+    $jobs = $Employer->job; // note: relationship defined as `job()` in model
 
     $this->assertCount(2, $jobs);
     expect($jobs->pluck('id')->toArray())->toContain($jobA->id)->toContain($jobB->id);

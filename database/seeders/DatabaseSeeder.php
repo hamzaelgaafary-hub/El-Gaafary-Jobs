@@ -6,23 +6,30 @@ use App\Enums\UserStatusEnum;
 //  use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Database\Seeders\EmployerSeeder;
+use Database\Seeders\JobSeeder;
+use Database\Seeders\RolesAndPermissionsSeeder;
 
 class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
      */
+    
     public function run(): void
     {
+       
         User::factory()->create([
             'name' => 'Test Admin',
-            'email' => 'admin@admin.com',
+            'email' => 'Admin@Admin.com',
+            'type' => 'Admin',
             'status' => UserStatusEnum::Admin->value,
             'password' => '123456789',
         ]);
         User::factory()->create([
             'name' => 'Test Employer',
-            'email' => 'employer@employer.com',
+            'email' => 'Employer@Employer.com',
+            'type' => 'Employer',
             'status' => UserStatusEnum::Employer->value,
             'password' => '123456789',
         ]);
@@ -32,8 +39,12 @@ class DatabaseSeeder extends Seeder
             'status' => UserStatusEnum::JobSeeker->value,
             'password' => '123456789',
         ]);
-        $this->call(JobSeeder::class);
-        $this->call(RolesAndPermissionsSeeder::class);
+        
+        $this->call([     
+            RolesAndPermissionsSeeder::class,
+            //EmployerSeeder::class,
+            JobSeeder::class,
+        ]);
 
     }
 }

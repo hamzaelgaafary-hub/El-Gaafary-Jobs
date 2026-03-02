@@ -6,5 +6,5 @@ use Filament\Pages\Page;
 
 class Dashboard extends Page
 {
-    protected string $view = 'filament.employer.pages.dashboard';
+    protected string $view = 'filament.Employer.pages.dashboard';
 }

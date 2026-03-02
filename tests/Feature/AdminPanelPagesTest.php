@@ -10,31 +10,31 @@ uses(RefreshDatabase::class);
 
 beforeEach(function (): void {
     $this->panelUser = User::factory()->create([
-        'email' => 'employer@employer.com',
+        'email' => 'Employer@Employer.com',
     ]);
 
     $this->editableUser = User::factory()->create();
-    $this->employerOwner = User::factory()->create();
-    $this->employer = Employer::factory()->create([
-        'user_id' => $this->employerOwner->id,
+    $this->EmployerOwner = User::factory()->create();
+    $this->Employer = Employer::factory()->create([
+        'user_id' => $this->EmployerOwner->id,
     ]);
     $this->job = Job::factory()->create([
-        'employer_id' => $this->employer->id,
+        'Employer_id' => $this->Employer->id,
     ]);
 });
 
-it('redirects guests from protected admin pages to admin login', function (string $routeName, Closure $parametersResolver): void {
+it('redirects guests from protected Admin pages to Admin login', function (string $routeName, Closure $parametersResolver): void {
     $this->get(route($routeName, $parametersResolver($this)))
         ->assertRedirect();
-})->with('admin-protected-pages');
+})->with('Admin-protected-pages');
 
-it('allows authenticated panel users to access protected admin pages', function (string $routeName, Closure $parametersResolver): void {
+it('allows authenticated panel users to access protected Admin pages', function (string $routeName, Closure $parametersResolver): void {
     $this->actingAs($this->panelUser)
         ->get(route($routeName, $parametersResolver($this)))
         ->assertOk();
-})->with('admin-protected-pages');
+})->with('Admin-protected-pages');
 
-it('forbids authenticated users who do not pass admin panel access check', function (): void {
+it('forbids authenticated users who do not pass Admin panel access check', function (): void {
     $unauthorizedUser = User::factory()->create([
         'email' => 'unauthorized@example.com',
     ]);
@@ -44,14 +44,14 @@ it('forbids authenticated users who do not pass admin panel access check', funct
         ->assertForbidden();
 });
 
-it('allows guests to view admin authentication pages', function (string $routeName): void {
+it('allows guests to view Admin authentication pages', function (string $routeName): void {
     $this->get(route($routeName))->assertOk();
 })->with([
     'login' => 'filament.Admin.auth.login',
     'register' => 'filament.Admin.auth.register',
 ]);
 
-dataset('admin-protected-pages', [
+dataset('Admin-protected-pages', [
     'dashboard' => [
         'filament.Admin.pages.dashboard',
         fn ($test): array => [],
@@ -80,17 +80,17 @@ dataset('admin-protected-pages', [
         'filament.Admin.resources.jobs.edit',
         fn ($test): array => ['record' => $test->job],
     ],
-    'employers index' => [
-        'filament.Admin.resources.employers.index',
+    'Employers index' => [
+        'filament.Admin.resources.Employers.index',
         fn ($test): array => [],
     ],
-    'employers create' => [
-        'filament.Admin.resources.employers.create',
+    'Employers create' => [
+        'filament.Admin.resources.Employers.create',
         fn ($test): array => [],
     ],
-    'employers edit' => [
-        'filament.Admin.resources.employers.edit',
-        fn ($test): array => ['record' => $test->employer],
+    'Employers edit' => [
+        'filament.Admin.resources.Employers.edit',
+        fn ($test): array => ['record' => $test->Employer],
     ],
     'tags index' => [
         'filament.Admin.resources.tags.index',
@@ -103,15 +103,15 @@ it('shows created records on resource index pages', function (): void {
 
     // Create identifiable records
     $user = User::factory()->create(['name' => 'ListUserTest']);
-    $employer = Employer::factory()->create(['name' => 'ListEmployerTest']);
-    $job = Job::factory()->create(['title' => 'ListJobTest', 'employer_id' => $employer->id]);
+    $Employer = Employer::factory()->create(['name' => 'ListEmployerTest']);
+    $job = Job::factory()->create(['title' => 'ListJobTest', 'Employer_id' => $Employer->id]);
 
     // Index pages should be reachable and contain the created records' identifiers
     $this->get(route('filament.Admin.resources.users.index'))
         ->assertOk()
         ->assertSee('ListUserTest');
 
-    $this->get(route('filament.Admin.resources.employers.index'))
+    $this->get(route('filament.Admin.resources.Employers.index'))
         ->assertOk()
         ->assertSee('ListEmployerTest');
 

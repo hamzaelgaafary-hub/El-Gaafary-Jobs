@@ -15,6 +15,8 @@ class EmployerInfolist
                     ->label('User'),
                 TextEntry::make('name'),
                 TextEntry::make('logo'),
+                TextEntry::make('description'),
+                TextEntry::make('website'),
                 TextEntry::make('created_at')
                     ->dateTime()
                     ->placeholder('-'),

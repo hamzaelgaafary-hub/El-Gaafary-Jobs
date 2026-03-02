@@ -4,6 +4,7 @@ namespace App\Filament\Employer\Resources\Employers\Pages;
 
 use App\Filament\Employer\Resources\Employers\EmployerResource;
 use Filament\Actions\EditAction;
+use Illuminate\Support\Facades\Auth;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewEmployer extends ViewRecord
@@ -16,4 +17,6 @@ class ViewEmployer extends ViewRecord
             EditAction::make(),
         ];
     }
+    
+
 }

@@ -21,6 +21,10 @@ class EmployersTable
                     ->searchable(),
                 TextColumn::make('logo')
                     ->searchable(),
+                TextColumn::make('description')
+                    ->searchable(),
+                TextColumn::make('website')
+                    ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
