@@ -2,12 +2,10 @@
 
 namespace Tests\Feature\EmployerJobs;
 
-use App\Filament\Employer\Resources\EmployerJobs\Pages\ListEmployerJobs;
 use App\Models\Employer;
 use App\Models\Job;
 use App\Models\User;
-use Illuminate\Support\Collection;
-use Livewire\Livewire;
+
 use function Pest\Laravel\actingAs;
 
 it('only shows jobs belonging to employers owned by the authenticated user', function () {
@@ -28,15 +26,12 @@ it('only shows jobs belonging to employers owned by the authenticated user', fun
 
     actingAs($user);
 
-    // ensure our query logic matches what the resource will use. jobs
-    // attached to employers owned by the authenticated user should be
-    // returned, while others are not.
-    $filtered = Job::query()
-        ->whereHas('Employer', fn ($q) => $q->where('user_id', $user->id))
-        ->get();
-
-    expect($filtered->pluck('id'))
-        ->toContain($jobA->id)
-        ->toContain($jobB->id)
-        ->not->toContain($jobOther->id);
+    // hitting the panel page will load the same query used by the
+    // resource; confirming the HTTP response shows the right titles is a
+    // more realistic end‑to‑end check.
+    $this->get('/Employer/employer-jobs')
+        ->assertOk()
+        ->assertSee($jobA->title)
+        ->assertSee($jobB->title)
+        ->assertDontSee($jobOther->title);
 });

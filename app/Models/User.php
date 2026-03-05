@@ -4,14 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use Filament\Panel;
 use App\Enums\UserStatusEnum;
-use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements FilamentUser
 {
@@ -58,26 +58,47 @@ class User extends Authenticatable implements FilamentUser
         ];
     }
 
-    public function Employer(): HasOne
+    public function Employer(): HasMany
     {
-        return $this->hasOne(Employer::class);
+        return $this->hasMany(Employer::class);
     }
 
     public function IsEmployer()
     {
         return $this->type === 'Employer';
     }
+
     public function IsAdmin(): bool
     {
         return $this->type === 'Admin';
     }
+
     public function IsJobSeeker(): bool
     {
         return $this->type === 'JobSeeker';
     }
-        
+    /**
+     * Get the correct dashboard URL for the user.
+     */
+    public function getDashboardUrl(): string
+    {
+        // Route to the Admin panel
+        if ($this->IsAdmin()) {
+            // You can use url('/Admin') or the exact route name if you prefer
+            return route('filament.Admin.pages.dashboard'); 
+        }
+
+        // Route to the Employer panel
+        if ($this->IsEmployer()) {
+            return route('filament.Employer.pages.dashboard'); 
+        }
+
+        // Fallback for regular users (e.g., job seekers)
+        return url('/'); 
+    }
+
     public function canAccessPanel(Panel $panel): bool
     {
-            return $this->type === $panel->getId();
+        return $this->type === $panel->getId();
     }
 }

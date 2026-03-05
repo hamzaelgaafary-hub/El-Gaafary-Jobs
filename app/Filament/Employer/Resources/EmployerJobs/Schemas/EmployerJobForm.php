@@ -6,8 +6,8 @@ use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class EmployerJobForm
 {
@@ -38,11 +38,11 @@ class EmployerJobForm
                     ->label('Job Type')
                     ->required(),
                 Select::make('Employer_id')
-                ->relationship(
-                        name: 'employer', // This must match the relationship method name on your current model
+                    ->relationship(
+                        name: 'Employer', // This must match the relationship method name on your current model
                         titleAttribute: 'name', // The column name you want to display in the dropdown
                         modifyQueryUsing: fn (Builder $query) => $query->where('user_id', auth::id())
-                    )                    
+                    )
                     ->searchable()
                     ->preload()
                     ->default(Auth::user()->Employer->id),
@@ -59,12 +59,12 @@ class EmployerJobForm
                 Radio::make('featured')
                     ->label('Featured')
                     ->options([
-                        true => 'Featured',
-                        false => 'Not featured',
+                    true => 'Featured',
+                    false => 'Not featured',
                     ])
                     ->descriptions([
-                        true => 'Job will be featured on the homepage.',
-                        false => 'Job will not be featured on the homepage.',
+                    true => 'Job will be featured on the homepage.',
+                    false => 'Job will not be featured on the homepage.',
                     ])
                     ->default(false),
             ]);

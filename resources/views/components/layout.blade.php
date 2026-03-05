@@ -18,22 +18,27 @@
         <nav class="flex justify-between items-center py-4 border-b border-white/10">
             <div>
                 <a href="/">
-                    <img src="{{ Vite::asset('resources/images/logo.svg') }}" alt="">
+                    <img src="{{ Vite::asset('resources/images/logo.svg') }}" alt="El Gaafary Jobs Logo" width="92"
+                        height="29">
                 </a>
             </div>
 
             <div class="space-x-6 font-bold">
-                <a href="/">Jobs</a>
-                <a href="#">Careers</a>
-                <a href="#">Salaries</a>
-                <a href="#">Companies</a>
+                <a href="/" class="text-gray-300 hover:text-blue-600">Jobs</a>
+                <a href="/about" class="text-gray-300 hover:text-blue-600">About </a>
+                <a href="/employers" class="text-gray-300 hover:text-blue-600">Employers</a>
             </div>
 
             @auth
                 <div class="space-x-6 font-bold flex">
-                    <a href="/jobs/create">Post a Job</a>
+                    <a href="{{ auth()->user()->getDashboardUrl() }}" class="text-gray-50 hover:text-green-600">
+                        My Dashboard
+                    </a>
 
-                    <form method="POST" action="/logout">
+                    <a href="/jobs/create" class="text-gray-300 hover:text-blue-600">Post a Job</a>
+
+
+                    <form method="POST" class="text-gray-50 hover:text-red-600" action="/logout">
                         @csrf
                         @method('DELETE')
 
@@ -44,8 +49,10 @@
 
             @guest
                 <div class="space-x-6 font-bold">
-                    <a href="/register">Sign Up</a>
-                    <a href="/login">Log In</a>
+                    <a href="/register" class="text-gray-100 hover:text-blue-600">Sign Up</a>
+                    <a href="/login" class="text-gray-300 hover:text-blue-600">
+                        Log in
+                    </a>
                 </div>
             @endguest
         </nav>
