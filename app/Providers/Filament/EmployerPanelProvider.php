@@ -33,13 +33,11 @@ class EmployerPanelProvider extends PanelProvider
             ->id('Employer')
             ->path('Employer')
             ->login()
-            // ->hasRoles( )
             ->authGuard('web')
             //->profile()
             ->colors([
                 'primary' => Color::Amber,
             ])
-
             ->discoverResources(in: app_path('Filament/Employer/Resources'), for: 'App\Filament\Employer\Resources')
             ->discoverPages(in: app_path('Filament/Employer/Pages'), for: 'App\Filament\Employer\Pages')
             ->pages([
