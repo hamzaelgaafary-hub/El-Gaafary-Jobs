@@ -7,6 +7,9 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\User;
 use App\Observers\UserObserver;
 use Illuminate\Pagination\Paginator;
+use Mcamara\LaravelLocalization\Traits\LoadsTranslatedCachedRoutes;
+//use Illuminate\Foundation\Providers\RouteServiceProvider;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,8 +26,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        //RouteServiceProvider::loadCachedRoutesUsing(fn() => $this->loadCachedRoutes());
+
         Model::unguard();
         Paginator::useTailwind();
         //dd(User::all());
+
     }
 }

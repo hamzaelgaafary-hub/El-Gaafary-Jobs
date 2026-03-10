@@ -1,16 +1,16 @@
 <x-layout>
-    <x-page-heading>New Job</x-page-heading>
+    <x-page-heading>{{ __('layouts.post_a_job') }}</x-page-heading>
 
     <x-forms.form method="POST" action="/jobs">
-        <x-forms.input label="Title" name="title" placeholder="CEO" />
+        <x-forms.input label="Title" name="title" placeholder="CEO Wanted" />
         <x-forms.input label="Salary" name="salary" placeholder="$90,000 USD" />
-        <x-forms.input label="Location" name="location" placeholder="Winter Park, Florida" />
+        <x-forms.input label="Location" name="location" placeholder="{{ __('layout.location_example') }}" />
 
         <x-forms.select label="Type" name="type">
-            <option>Part Time</option>
-            <option>Full Time</option>
-            <option>Remote</option>
-            <option>Freelance</option>
+            @foreach (['full-time', 'part-time', 'contract', 'internship'] as $type)
+                <option value="{{ $type }}">{{ ucfirst(str_replace('-', ' ', $type)) }}</option>
+            @endforeach
+            <option value="">{{ __('layout.select_type') }}</option>
         </x-forms.select>
 
         <x-forms.input label="URL" name="url" placeholder="https://acme.com/jobs/ceo-wanted" />
@@ -20,6 +20,6 @@
 
         <x-forms.input label="Tags (comma separated)" name="Tags" placeholder="laracasts, video, education" />
 
-        <x-forms.button>Publish</x-forms.button>
+        <x-forms.button>{{ __('layout.publish_job') }}</x-forms.button>
     </x-forms.form>
 </x-layout>

@@ -15,9 +15,11 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Resources\Concerns\Translatable; 
 
 class EmployerJobResource extends Resource
 {
+   
     protected static ?string $model = Job::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;

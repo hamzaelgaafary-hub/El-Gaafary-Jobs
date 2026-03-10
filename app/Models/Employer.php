@@ -8,11 +8,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\Translatable\HasTranslations;
 
 class Employer extends Model
 {
     /** @use HasFactory<\Database\Factories\EmployerFactory> */
-    use HasFactory, HasRoles, Notifiable;
+    
+    use HasFactory, HasTranslations ,HasRoles, Notifiable;
 
     protected $fillable = [
         'user_id',
@@ -21,6 +23,12 @@ class Employer extends Model
         'description',
         'logo',
     ];
+
+        public array $translatable = [
+            'name',
+            'website',
+            'description',
+        ];
 
     protected $table = 'Employers';
 

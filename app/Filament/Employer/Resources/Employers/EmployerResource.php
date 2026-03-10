@@ -19,9 +19,11 @@ use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Resources\Concerns\Translatable;
 
 class EmployerResource extends Resource
 {
+//    use Translatable;
     protected static ?string $model = Employer::class;
     protected static ?string $navigationLabel = 'My Profiles';
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUserCircle;

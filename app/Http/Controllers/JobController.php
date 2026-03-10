@@ -78,6 +78,13 @@ class JobController extends Controller
         }
 
         return redirect('/');
+    }
+    public function show(Request $request, $id)
+    {
+        $job = Job::with(['Employer'])->findOrFail($id);
 
+        return view('jobs.show', [
+            'job' => $job,
+        ]);
     }
 }

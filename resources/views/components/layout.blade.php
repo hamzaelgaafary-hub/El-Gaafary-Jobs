@@ -18,24 +18,24 @@
         <nav class="flex justify-between items-center py-4 border-b border-white/10">
             <div>
                 <a href="/">
-                    <img src="{{ Vite::asset('resources/images/logo.svg') }}" alt="El Gaafary Jobs Logo" width="92"
-                        height="29">
+                    <img src="{{ Vite::asset('resources/images/logo.svg') }}" alt="El Gaafary Jobs Logo" width="100"
+                        height="40">
                 </a>
             </div>
-
             <div class="space-x-6 font-bold">
-                <a href="/" class="text-gray-300 hover:text-blue-600">Jobs</a>
-                <a href="/about" class="text-gray-300 hover:text-blue-600">About </a>
-                <a href="/employers" class="text-gray-300 hover:text-blue-600">Employers</a>
-            </div>
+                <a href="/" class="text-gray-300 hover:text-blue-600">{{ __('layouts.jobs') }}</a>
 
+                <a href="/about" class=" text-gray-300 hover:text-blue-600 ">{{ __('layouts.about') }}</a>
+
+                <a href="/employers" class="text-gray-300 hover:text-blue-600 ">{{ __('layouts.employers') }}</a>
+            </div>
             @auth
                 <div class="space-x-6 font-bold flex">
                     <a href="{{ auth()->user()->getDashboardUrl() }}" class="text-gray-50 hover:text-green-600">
                         My Dashboard
                     </a>
 
-                    <a href="/jobs/create" class="text-gray-300 hover:text-blue-600">Post a Job</a>
+                    <a href="/jobs/create" class="text-gray-300 hover:text-blue-600">{{ __('layouts.post_a_job') }}</a>
 
 
                     <form method="POST" class="text-gray-50 hover:text-red-600" action="/logout">
@@ -49,14 +49,25 @@
 
             @guest
                 <div class="space-x-6 font-bold">
-                    <a href="/register" class="text-gray-100 hover:text-blue-600">Sign Up</a>
+                    <a href="/register" class="text-gray-100 hover:text-blue-600">{{ __('layouts.sign_up') }}</a>
                     <a href="/login" class="text-gray-300 hover:text-blue-600">
-                        Log in
+                        {{ __('layouts.log_in') }}
                     </a>
                 </div>
             @endguest
+            <div class="hidden md:block">
+                <div class="font-bold">
+                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                        <li class=" text-gray-300 hover:text-blue-600">
+                            <a rel="alternate" hreflang="{{ $localeCode }}"
+                                href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                {{ $properties['native'] }}
+                            </a>
+                        </li>
+                    @endforeach
+                </div>
+            </div>
         </nav>
-
         <main class="mt-10 max-w-[986px] mx-auto">
             {{ $slot }}
         </main>
