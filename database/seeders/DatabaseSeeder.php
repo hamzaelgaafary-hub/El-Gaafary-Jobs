@@ -8,7 +8,6 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Database\Seeders\EmployerSeeder;
 use Database\Seeders\JobSeeder;
-use Database\Seeders\RolesAndPermissionsSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,7 +17,6 @@ class DatabaseSeeder extends Seeder
     
     public function run(): void
     {
-       
         User::factory()->create([
             'name' => 'Test Admin',
             'email' => 'Admin@Admin.com',
@@ -41,10 +39,8 @@ class DatabaseSeeder extends Seeder
         ]);
         
         $this->call([     
-            RolesAndPermissionsSeeder::class,
             //EmployerSeeder::class,
             JobSeeder::class,
         ]);
-
     }
 }

@@ -16,12 +16,15 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Doriiaan\FilamentAstrotomic\Resources\Concerns\ResourceTranslatable;
 
 class JobResource extends Resource
 {
+    use ResourceTranslatable;
     protected static ?string $model = Job::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+
 
     public static function form(Schema $schema): Schema
     {
@@ -49,6 +52,10 @@ class JobResource extends Resource
         ];
     }
 
+    public static function getTranslatableLocales(): array
+    {
+        return ['ar', 'en', 'tr'];
+    }
     public static function getPages(): array
     {
         return [
@@ -57,4 +64,5 @@ class JobResource extends Resource
             'edit' => EditJob::route('/{record}/edit'),
         ];
     }
+    
 }

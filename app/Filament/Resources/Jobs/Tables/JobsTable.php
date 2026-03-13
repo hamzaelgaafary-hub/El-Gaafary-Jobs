@@ -9,6 +9,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Columns\SelectColumn;
+use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\Filter;
@@ -16,6 +17,8 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Schemas\Components\Tabs\Tab;
+use App\Filament\Resources\Jobs\JobResource;
 
 class JobsTable
 {
@@ -23,15 +26,21 @@ class JobsTable
     {
         return $table
             ->columns([
-                TextColumn::make('title')
-                    ->sortable()
-                    ->searchable(),
-                TextColumn::make('salary')
-                    ->money('USD')
-                    ->sortable()
-                    ->alignEnd()
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('translations.title')
+                    ->label('Job Title')
+                    
+                    ->sortable(query: function ($query, string $direction) {
+                        // الترتيب حسب الترجمة يحتاج Join أو استخدام ميزة المكتبة
+                        $query->orderByTranslation('title', $direction);
+                    })    // بيعرض أول لغة بس عشان الزحمة
+                    ->searchable(query: function ($query, string $search) {
+                        // البحث في الترجمات باستخدام ميزة Astrotomic
+                        $query->whereTranslationLike('title', "%{$search}%");
+                    }),
+                
+                TextColumn::make('translations.description') // Plural 'translations'
+                    ->label('Job Description'),
+                        
                 SelectColumn::make('type')
                     ->options([
                         'full_time' => 'Full Time',
@@ -41,6 +50,11 @@ class JobsTable
                     ])
                     ->label('Job Type')
                     ->searchable(),
+                TextColumn::make('location')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make('Tags.name')
                     ->alignEnd()
                     ->sortable()
@@ -55,8 +69,10 @@ class JobsTable
                     ->searchable()
                     ->openUrlInNewTab()
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('location')
+                TextColumn::make('salary')
+                    ->money('USD')
                     ->sortable()
+                    ->alignEnd()
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
@@ -65,6 +81,8 @@ class JobsTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+
+
             ->filters([
                 SelectFilter::make('Employer_id')
                     ->relationship('Employer', 'name'),
@@ -110,9 +128,13 @@ class JobsTable
             ], layout: FiltersLayout::AboveContent)
 
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()->mutateRecordDataUsing(function (Job $record, array $data) {
+                    return JobResource::mutateTranslatableData($record, $data);
+                })->mutateDataUsing(function (Job $record, array $data) {
+                    $record->unsetRelation('translation');
+                    return $data;
+                }),
             ])
-
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),

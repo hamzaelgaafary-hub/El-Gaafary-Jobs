@@ -7,19 +7,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Spatie\Translatable\HasTranslations;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Astrotomic\Translatable\Translatable;
+use App\Models\Job_translation;
 
-class Job extends Model
+class Job extends Model implements TranslatableContract
 {
-    /** @use HasFactory<\Database\Factories\JobFactory> */
-    use HasTranslations, HasFactory ;
+    use HasFactory, Translatable;
 
     /**
      * @var \Illuminate\Support\HigherOrderCollectionProxy|mixed
      */
-    protected $fillable = [];
-      public array $translatable = [];
-
+    public $translationModel = Job_translation::class;
+    public $translatedAttributes = ['title', 'description']; 
+    
+    // Define your normal fillable attributes
+    protected $fillable = ['employer_id', 'salary', 'url', 'featured', 'location', 'type'];      
     protected $table = 'jobs';
 
     public function Tag(string $name): void
@@ -27,7 +30,6 @@ class Job extends Model
         $Tag = Tag::firstOrCreate(['name' => strtolower($name)]);
 
         $this->Tags()->attach($Tag);
-
     }
 
     public function Tags(): BelongsToMany

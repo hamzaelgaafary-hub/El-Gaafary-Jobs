@@ -19,12 +19,8 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Joaopaulolndev\FilamentEditProfile\FilamentEditProfilePlugin;
 use Filament\Navigation\MenuItem;
-use Joaopaulolndev\FilamentEditProfile\Pages\EditProfilePage;
-use Filament\SpatieLaravelTranslatablePlugin;
-use Illuminate\Support\Facades\Auth;
-use App\Models\User;
+use Doriiaan\FilamentAstrotomic\FilamentAstrotomicPlugin;
 
 class EmployerPanelProvider extends PanelProvider
 {
@@ -35,6 +31,9 @@ class EmployerPanelProvider extends PanelProvider
             ->path('Employer')
             ->login()
             ->authGuard('web')
+            ->plugins([
+            FilamentAstrotomicPlugin::make(),
+            ])
             //->profile()
             ->colors([
                 'primary' => Color::Amber,

@@ -19,7 +19,12 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Spatie\Permission\Models\Role;
+use Doriiaan\FilamentAstrotomic\FilamentAstrotomicPlugin;
+use Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect;
+use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes;
+use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -30,6 +35,10 @@ class AdminPanelProvider extends PanelProvider
             ->id('Admin')
             ->path('Admin')
             ->login()
+            ->plugins([
+            FilamentAstrotomicPlugin::make(),
+            ])
+            //->font('Tajawal')
             ->colors([
                 'primary' => Color::Blue,
                 'tertiary' => Color::Green,
@@ -60,7 +69,13 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
                 Checkrole::class.':Admin',
+                /*
+                LocaleSessionRedirect::class,
+                LaravelLocalizationRoutes::class,
+                LaravelLocalizationViewPath::class,
+                */
             ])
+            
             ->authMiddleware([
                 Authenticate::class,
             ]);

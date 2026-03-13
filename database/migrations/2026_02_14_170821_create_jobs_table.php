@@ -16,16 +16,14 @@ return new class extends Migration
             $table->engine = 'InnoDB';
             $table->id();
             $table->foreignIdFor(Employer::class);
-            $table->string('title');
             $table->string('salary');
-            $table->string('location');
             $table->string('url');
+            $table->string('location')->nullable();
             $table->string('type')->default('full-time');
             $table->boolean('featured')->default(false);
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */

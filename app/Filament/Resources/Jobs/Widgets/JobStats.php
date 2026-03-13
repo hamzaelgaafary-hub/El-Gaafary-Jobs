@@ -27,10 +27,10 @@ class JobStats extends StatsOverviewWidget
                 ->chart(range(1, Job::where('featured', false)->count()))
                 ->color('warning'),
 
-            Stat::make('Total Full time Jobs', Job::where('type', 'full_time')->count())
-                ->description('Total Full time Jobs : '.Job::where('type', 'full_time')->count())
+            Stat::make('Total Full time Jobs', Job::whereTranslation('type', 'full_time')->count())
+                ->description('Total Full time Jobs : '.Job::whereTranslation('type', 'full_time')->count())
                 ->descriptionIcon('heroicon-m-arrow-trending-down')
-                ->chart(range(1, Job::where('type', 'full_time')->count()))
+                ->chart(range(1, Job::whereTranslation('type', 'full_time')->count()))
                 ->color('warning'),
 
         ];
