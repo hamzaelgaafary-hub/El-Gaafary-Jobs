@@ -16,4 +16,14 @@ class ManageTags extends ManageRecords
             CreateAction::make(),
         ];
     }
+
+    public function getTitle(): string
+    {
+        return __('filament/Admin/manage_tags.title');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('filament/Admin/manage_tags.title');
+    }
 }

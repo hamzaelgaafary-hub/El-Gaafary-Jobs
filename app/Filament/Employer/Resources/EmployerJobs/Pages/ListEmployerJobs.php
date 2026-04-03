@@ -14,7 +14,17 @@ class ListEmployerJobs extends ListRecords
     {
         return [
             CreateAction::make(),
-            
+
         ];
+    }
+
+    public function getTitle(): string
+    {
+        return __('filament/Employer/list_employer_jobs.title');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('filament/Employer/list_employer_jobs.title');
     }
 }

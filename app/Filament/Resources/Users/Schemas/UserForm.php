@@ -13,20 +13,19 @@ class UserForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label(__('filament/Admin/user_resource.name'))
                     ->unique()
                     ->required(),
                 TextInput::make('email')
-                    ->label('Email address')
+                    ->label(__('filament/Admin/user_resource.email'))
                     ->email(),
                 Select::make('status')
-                    ->options([
-                        'Admin' => 'Admin',
-                        'JobSeeker' => 'JobSeeker',
-                        'Employer' => 'Employer',
-                    ])
+                    ->label(__('filament/Admin/user_resource.status'))
+                    ->options(['Admin' => __('filament/Admin/user_resource.status.admin'), 'JobSeeker' => __('filament/Admin/user_resource.status.job_seeker'), 'Employer' => __('filament/Admin/user_resource.status.employer')])
                     ->required(),
 
                 TextInput::make('Password')
+                    ->label(__('filament/Admin/user_resource.password'))
                     ->password()
                     ->required(),
             ]);

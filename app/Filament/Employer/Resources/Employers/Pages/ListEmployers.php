@@ -4,7 +4,6 @@ namespace App\Filament\Employer\Resources\Employers\Pages;
 
 use App\Filament\Employer\Resources\Employers\EmployerResource;
 use Filament\Actions\CreateAction;
-use Illuminate\Support\Facades\Auth;
 use Filament\Resources\Pages\ListRecords;
 
 class ListEmployers extends ListRecords
@@ -16,5 +15,15 @@ class ListEmployers extends ListRecords
         return [
             CreateAction::make(),
         ];
+    }
+
+    public function getTitle(): string
+    {
+        return __('filament/Employer/list_employers.title');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('filament/Employer/list_employers.title');
     }
 }

@@ -12,16 +12,23 @@ use App\Filament\Resources\Jobs\Widgets\JobStats;
 use App\Filament\Widgets\AdminStatsOverview;
 use App\Models\Job;
 use BackedEnum;
+use Doriiaan\FilamentAstrotomic\Resources\Concerns\ResourceTranslatable;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use Doriiaan\FilamentAstrotomic\Resources\Concerns\ResourceTranslatable;
 
 class JobResource extends Resource
 {
     use ResourceTranslatable;
+
     protected static ?string $model = Job::class;
+
+    protected static ?string $navigationLabel = null;
+
+    protected static ?string $modelLabel = null;
+
+    protected static ?string $pluralModelLabel = null;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
@@ -55,6 +62,7 @@ class JobResource extends Resource
     {
         return ['ar', 'en', 'tr'];
     }
+
     public static function getPages(): array
     {
         return [
@@ -63,5 +71,19 @@ class JobResource extends Resource
             'edit' => EditJob::route('/{record}/edit'),
         ];
     }
-    
+
+    public static function getNavigationLabel(): string
+    {
+        return __('filament/Admin/job_resource.navigation_label');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('filament/Admin/job_resource.model_label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('filament/Admin/job_resource.plural_model_label');
+    }
 }

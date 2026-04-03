@@ -15,6 +15,7 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class TagsRelationManager extends RelationManager
 {
@@ -25,6 +26,7 @@ class TagsRelationManager extends RelationManager
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label(__('filament/Admin/tags_relation_manager.name'))
                     ->required()
                     ->maxLength(255),
             ]);
@@ -36,6 +38,7 @@ class TagsRelationManager extends RelationManager
             ->recordTitleAttribute('name')
             ->columns([
                 TextColumn::make('name')
+                    ->label(__('filament/Admin/tags_relation_manager.name'))
                     ->searchable(),
             ])
             ->filters([
@@ -56,5 +59,10 @@ class TagsRelationManager extends RelationManager
                     DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return __('filament/Admin/tags_relation_manager.title');
     }
 }

@@ -22,15 +22,18 @@ class EmployerJobsTable
         return $table
             ->columns([
                 TextColumn::make('title')
+                    ->label(__('filament/Employer/employer_job_resource.title'))
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('salary')
+                    ->label(__('filament/Employer/employer_job_resource.salary'))
                     ->money('USD')
                     ->sortable()
                     ->alignEnd()
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 SelectColumn::make('type')
+                    ->label(__('filament/Employer/employer_job_resource.type'))
                     ->options([
                         'full_time' => 'Full Time',
                         'part_time' => 'Part Time',
@@ -43,20 +46,21 @@ class EmployerJobsTable
                     ->alignEnd()
                     ->sortable()
                     ->badge()
-                    ->label('Tags')
+                    ->label(__('filament/Employer/employer_job_resource.tags.name'))
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('Employer.name')
-                    ->label('Employer Name')
+                    ->label(__('filament/Employer/employer_job_resource.employer.name'))
                     ->sortable()
                     ->openUrlInNewTab()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('location')
+                    ->label(__('filament/Employer/employer_job_resource.location'))
                     ->sortable()
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
-                    ->label('Created At')
+                    ->label(__('filament/Employer/employer_job_resource.created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

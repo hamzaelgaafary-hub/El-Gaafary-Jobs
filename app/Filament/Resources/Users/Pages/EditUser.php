@@ -22,4 +22,14 @@ class EditUser extends EditRecord
     {
         return $this->getResource()::getUrl('index');
     }
+
+    public function getTitle(): string
+    {
+        return __('filament/Admin/edit_user.title');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('filament/Admin/edit_user.title');
+    }
 }

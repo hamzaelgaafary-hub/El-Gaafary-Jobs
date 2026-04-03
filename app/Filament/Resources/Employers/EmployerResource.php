@@ -18,6 +18,12 @@ class EmployerResource extends Resource
 {
     protected static ?string $model = Employer::class;
 
+    protected static ?string $navigationLabel = null;
+
+    protected static ?string $modelLabel = null;
+
+    protected static ?string $pluralModelLabel = null;
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     public static function form(Schema $schema): Schema
@@ -44,5 +50,20 @@ class EmployerResource extends Resource
             'create' => CreateEmployer::route('/create'),
             'edit' => EditEmployer::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('filament/Admin/employer_resource.navigation_label');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('filament/Admin/employer_resource.model_label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('filament/Admin/employer_resource.plural_model_label');
     }
 }

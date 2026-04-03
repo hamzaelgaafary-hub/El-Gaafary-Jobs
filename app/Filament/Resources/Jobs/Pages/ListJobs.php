@@ -11,7 +11,8 @@ use Filament\Resources\Pages\ListRecords;
 
 class ListJobs extends ListRecords
 {
-    use ListTranslatable;   
+    use ListTranslatable;
+
     protected static string $resource = JobResource::class;
 
     protected function getHeaderActions(): array
@@ -38,5 +39,15 @@ class ListJobs extends ListRecords
     protected function getRedirectUrl(): string
     {
         return $this->getResource()::getUrl('index');
+    }
+
+    public function getTitle(): string
+    {
+        return __('filament/Admin/list_jobs.title');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('filament/Admin/list_jobs.title');
     }
 }

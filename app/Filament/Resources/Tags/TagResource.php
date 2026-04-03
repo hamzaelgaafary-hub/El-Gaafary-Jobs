@@ -20,6 +20,12 @@ class TagResource extends Resource
 {
     protected static ?string $model = Tag::class;
 
+    protected static ?string $navigationLabel = null;
+
+    protected static ?string $modelLabel = null;
+
+    protected static ?string $pluralModelLabel = null;
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     public static function form(Schema $schema): Schema
@@ -27,6 +33,7 @@ class TagResource extends Resource
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label(__('filament/Admin/tag_resource.name'))
                     ->required(),
 
             ]);
@@ -37,13 +44,16 @@ class TagResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label(__('filament/Admin/tag_resource.name'))
                     ->searchable(),
 
                 TextColumn::make('created_at')
+                    ->label(__('filament/Admin/tag_resource.created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label(__('filament/Admin/tag_resource.updated_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -68,5 +78,20 @@ class TagResource extends Resource
         return [
             'index' => ManageTags::route('/'),
         ];
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('filament/Admin/tag_resource.navigation_label');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('filament/Admin/tag_resource.model_label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('filament/Admin/tag_resource.plural_model_label');
     }
 }

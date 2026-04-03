@@ -19,22 +19,27 @@ class EmployersTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label(__('filament/Admin/employer_resource.name'))
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('logo')
+                    ->label(__('filament/Admin/employer_resource.logo'))
                     ->sortable()
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('user.name')
+                    ->label(__('filament/Admin/employer_resource.user.name'))
                     ->sortable()
                     ->searchable(),
 
                 TextColumn::make('created_at')
+                    ->label(__('filament/Admin/employer_resource.created_at'))
                     ->sortable()
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('updated_at')
+                    ->label(__('filament/Admin/employer_resource.updated_at'))
                     ->sortable()
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),

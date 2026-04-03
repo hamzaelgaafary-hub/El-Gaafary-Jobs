@@ -13,14 +13,16 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Resources\Concerns\Translatable; 
+use Illuminate\Support\Facades\Auth;
 
 class EmployerJobResource extends Resource
 {
-   
     protected static ?string $model = Job::class;
+
+    protected static ?string $modelLabel = null;
+
+    protected static ?string $pluralModelLabel = null;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
@@ -28,7 +30,7 @@ class EmployerJobResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return Auth::user()->name."'s Jobs";
+        return __('filament/Employer/employer_job_resource.navigation_label');
     }
 
     public static function form(Schema $schema): Schema
@@ -38,16 +40,14 @@ class EmployerJobResource extends Resource
 
     public static function table(Table $table): Table
     {
-    
+
         // show every job that belongs to an employer record owned by
         // the current user. this is important when the user has multiple
         // employer profiles – previously we only scoped to the *first* employer
         // id which could hide other jobs.
         return EmployerJobsTable::configure($table)
-            ->modifyQueryUsing(fn (Builder $query) =>
-                $query->whereHas('Employer', fn (Builder $q) =>
-                    $q->where('user_id', Auth::id())));
-     
+            ->modifyQueryUsing(fn (Builder $query) => $query->whereHas('Employer', fn (Builder $q) => $q->where('user_id', Auth::id())));
+
     }
 
     public static function getRelations(): array
@@ -60,6 +60,7 @@ class EmployerJobResource extends Resource
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $data['Employer_id'] = Auth::user()->Employer->id;
+
         return $data;
     }
 
@@ -72,7 +73,6 @@ class EmployerJobResource extends Resource
         ];
     }
 
-    
     /*
     public static function canCreate(): bool
     {
@@ -91,4 +91,13 @@ class EmployerJobResource extends Resource
                $record->Employer_id === Auth::user()->Employer->id;
     }
     */
+    public static function getModelLabel(): string
+    {
+        return __('filament/Employer/employer_job_resource.model_label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('filament/Employer/employer_job_resource.plural_model_label');
+    }
 }

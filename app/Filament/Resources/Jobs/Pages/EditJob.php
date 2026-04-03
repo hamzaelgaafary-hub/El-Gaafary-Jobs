@@ -10,6 +10,7 @@ use Filament\Resources\Pages\EditRecord;
 class EditJob extends EditRecord
 {
     use EditTranslatable;
+
     protected static string $resource = JobResource::class;
 
     protected function getHeaderActions(): array
@@ -22,5 +23,15 @@ class EditJob extends EditRecord
     protected function getRedirectUrl(): string
     {
         return $this->getResource()::getUrl('index');
+    }
+
+    public function getTitle(): string
+    {
+        return __('filament/Admin/edit_job.title');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('filament/Admin/edit_job.title');
     }
 }

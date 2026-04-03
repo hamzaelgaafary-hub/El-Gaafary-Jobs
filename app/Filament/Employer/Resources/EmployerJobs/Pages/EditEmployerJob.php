@@ -16,4 +16,14 @@ class EditEmployerJob extends EditRecord
             DeleteAction::make(),
         ];
     }
+
+    public function getTitle(): string
+    {
+        return __('filament/Employer/edit_employer_job.title');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('filament/Employer/edit_employer_job.title');
+    }
 }

@@ -21,4 +21,14 @@ class ListEmployers extends ListRecords
     {
         return $this->getResource()::getUrl('index');
     }
+
+    public function getTitle(): string
+    {
+        return __('filament/Admin/list_employers.title');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('filament/Admin/list_employers.title');
+    }
 }
