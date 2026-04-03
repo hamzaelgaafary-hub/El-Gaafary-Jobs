@@ -36,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
     Event::listen(LocaleChanged::class, function (LocaleChanged $event) {
         
         $newLocale = $event->newLocale;
+        //dd($newLocale);
 
         // Save to session
         Session::put('locale', $newLocale);
