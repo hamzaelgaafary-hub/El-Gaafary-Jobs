@@ -13,6 +13,9 @@ return [
     'status' => 'Status',
     'status.admin' => 'Admin',
     'status.employer' => 'Employer',
+    'status.filament/Admin/user_resource.status.admin' => 'filament/Admin/user_resource.status.admin',
+    'status.filament/Admin/user_resource.status.employer' => 'filament/Admin/user_resource.status.employer',
+    'status.filament/Admin/user_resource.status.job_seeker' => 'filament/Admin/user_resource.status.job_seeker',
     'status.job_seeker' => 'JobSeeker',
     'updated_at' => 'Updated',
 
