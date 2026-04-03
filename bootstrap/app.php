@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Application;
 use App\Http\Middleware\Checkrole;
+use App\Http\Middleware\SetLocale;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
@@ -19,6 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'localeSessionRedirect'   => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
             'localeCookieRedirect'    => \Mcamara\LaravelLocalization\Middleware\LocaleCookieRedirect::class,
             'localeViewPath'          => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
+            'setLocale'              => SetLocale::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

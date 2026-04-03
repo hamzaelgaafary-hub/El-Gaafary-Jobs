@@ -10,10 +10,14 @@ use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
+
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
 ], function() {
+
+    require base_path('vendor/filament/filament/routes/web.php');
+
     Route::get('/', [JobController::class, 'index']);
 
     Route::get('/Jobs/create', [JobController::class, 'create'])->middleware('auth');
@@ -25,7 +29,6 @@ Route::group([
     Route::middleware('guest')->group(function () {
         Route::get('/register', [RegisteredUserController::class, 'create']);
         Route::post('/register', [RegisteredUserController::class, 'store']);
-
         Route::get('/login', [SessionController::class, 'create']);
         Route::post('/login', [SessionController::class, 'store']);
     });

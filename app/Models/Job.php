@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use App\Models\Job_translation;
+use Illuminate\Support\Facades\App;
 
 class Job extends Model implements TranslatableContract
 {
@@ -18,6 +19,14 @@ class Job extends Model implements TranslatableContract
     /**
      * @var \Illuminate\Support\HigherOrderCollectionProxy|mixed
      */
+
+
+    protected static function booted()
+    {
+        static::addGlobalScope('locale', function ($query) {
+            $query->withTranslation(App::getLocale());
+        });
+    }
     public $translationModel = Job_translation::class;
     public $translatedAttributes = ['title', 'description']; 
     
@@ -31,6 +40,7 @@ class Job extends Model implements TranslatableContract
 
         $this->Tags()->attach($Tag);
     }
+
 
     public function Tags(): BelongsToMany
     {

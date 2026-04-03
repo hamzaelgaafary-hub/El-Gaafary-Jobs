@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\App;
 
 class User extends Authenticatable implements FilamentUser
 {
@@ -42,13 +43,17 @@ class User extends Authenticatable implements FilamentUser
 
     protected $casts = [
         'status' => UserStatusEnum::class,
+        'locale' => 'string',
     ];
+
 
     /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
      */
+
+
     protected function casts(): array
     {
         return [
@@ -81,23 +86,26 @@ class User extends Authenticatable implements FilamentUser
      */
     public function getDashboardUrl(): string
     {
+        $locale = app()->getLocale();
+
         // Route to the Admin panel
         if ($this->IsAdmin()) {
             // You can use url('/Admin') or the exact route name if you prefer
-            return route('filament.Admin.pages.dashboard'); 
+            return url($locale .'/Admin');
         }
 
         // Route to the Employer panel
         if ($this->IsEmployer()) {
-            return route('filament.Employer.pages.dashboard'); 
+            return url($locale . '/Employer');
         }
 
         // Fallback for regular users (e.g., job seekers)
-        return url('/'); 
+        return url($locale . '/');
     }
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->type === $panel->getId()|| $this->email === 'Admin@Admin.com';
+        return $this->type === $panel->getId();
+                //|| $this->email === 'Admin@Admin.com';
     }
 }

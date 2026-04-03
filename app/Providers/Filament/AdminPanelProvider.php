@@ -24,12 +24,15 @@ use Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect;
 use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes;
 use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath;
 use Illuminate\Support\Facades\Auth;
+use CraftForge\FilamentLanguageSwitcher\FilamentLanguageSwitcherPlugin;
 use App\Models\User;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Illuminate\Support\Facades\Route;
 use Filament\Actions\Action;
 use Illuminate\Support\Facades\App;
+use Filament\View\PanelsRenderHook;
 use Filament\Navigation\MenuItem;
+use App\Http\Middleware\SetLocale;
 
 
 class AdminPanelProvider extends PanelProvider
@@ -40,6 +43,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('Admin')
             ->path('Admin')
+
             ->login()
             /*
             FilamentLanguageSwitcherPlugin::make()
@@ -54,10 +58,28 @@ class AdminPanelProvider extends PanelProvider
                 App::setLocale($locale);
             })
             */
+            
             ->font('Tajawal')
             ->plugins([
-            FilamentAstrotomicPlugin::make(),
+           FilamentAstrotomicPlugin::make(),
+
+            // === LANGUAGE SWITCHER (CORRECTED) ===
+            FilamentLanguageSwitcherPlugin::make()
+                ->locales([
+                    ['code' => 'en', 'name' => 'English',     'flag' => 'gb'],
+                    ['code' => 'ar', 'name' => 'العربية',    'flag' => 'eg'],
+                    ['code' => 'tr', 'name' => 'Türkçe',    'flag' => 'tr'],
+                    // add more as needed
+                ])
+                ->showFlags(true)        
+                            // default = true, you can remove this line
+                ->renderHook(PanelsRenderHook::TOPBAR_END)   // ← Best UX for job portal (top-right)
+                // Other popular positions:
+                ->renderHook(PanelsRenderHook::USER_MENU_BEFORE)     // default
+                //->renderHook(PanelsRenderHook::SIDEBAR_FOOTER)
+                ->rememberLocale(days: 30),
             ])
+            
             ->colors([
                 'primary' => Color::Blue,
                 'tertiary' => Color::Green,
@@ -78,6 +100,7 @@ class AdminPanelProvider extends PanelProvider
                 // FilamentInfoWidget::class,
             ])
             ->middleware([
+                SetLocale::class,
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
                 StartSession::class,
@@ -88,11 +111,9 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
                 Checkrole::class.':Admin',
-                /*
                 LocaleSessionRedirect::class,
                 LaravelLocalizationRoutes::class,
                 LaravelLocalizationViewPath::class,
-                */
             ])
             
             ->authMiddleware([
