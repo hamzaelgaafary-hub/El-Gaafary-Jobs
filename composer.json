@@ -7,13 +7,16 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "craft-forge/filament-language-switcher": "^1.2",
+        "deeplcom/deepl-php": "^1.17",
         "doriiaan/filament-astrotomic": "^1.0",
         "filament/filament": "~4.0",
         "flowframe/laravel-trend": "^0.4.0",
         "joaopaulolndev/filament-edit-profile": "^2",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
-        "mcamara/laravel-localization": "*"
+        "mcamara/laravel-localization": "*",
+        "mominalzaraa/filament-localization": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.16",

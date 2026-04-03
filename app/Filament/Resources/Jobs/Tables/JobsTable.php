@@ -28,7 +28,6 @@ class JobsTable
             ->columns([
                 TextColumn::make('translations.title')
                     ->label('Job Title')
-                    
                     ->sortable(query: function ($query, string $direction) {
                         // الترتيب حسب الترجمة يحتاج Join أو استخدام ميزة المكتبة
                         $query->orderByTranslation('title', $direction);

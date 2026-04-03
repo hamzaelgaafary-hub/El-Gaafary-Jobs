@@ -25,69 +25,38 @@ class JobForm
             TranslatableTabs::make()
                 ->localeTabSchema(fn (TranslatableTab $tab) => [
                     TextInput::make($tab->makeName('title'))
-                    ->label('Job Title')
-                    ->required(), //  to Only strict on the primary language add ->required($tab->isMainLocale())
-                
+                        ->label('Job Title')
+                        ->translateLabel()
+                        ->required(), //  to Only strict on the primary language add ->required($tab->isMainLocale())
                     Textarea::make($tab->makeName('description'))
                         ->label('Job Description')
                         ->required($tab->isMainLocale()),
-            
-                    ])->columnSpanFull(),
+                ])->columnSpanFull(),
 
-                    TextInput::make('location')
+                TextInput::make('location')
                     ->required()
+                    ->translateLabel()
+                    ->label('Location')
                     ->maxLength(255),
-                    
-
-                    Select::make('type')
-                        ->options([
-                            'full_time' => 'Full Time',
-                            'part_time' => 'Part Time',
-                            'contract' => 'Contract',
-                            'internship' => 'Internship',
-                        ])
-                        ->label('Job Type')
-                        ->required(),
-                    Select::make('Employer_id')
-                        ->required()
-                        ->native(false)
-                        ->searchable()
-                        ->options(
-                            Employer::all()->pluck('name', 'id')
-                        )
-
-                        // Configure create action - https://filamentphp.com/docs/4.x/forms/select#creating-a-new-option-in-a-modal
-                        ->createOptionModalHeading('Create')
-                        ->createOptionForm(fn (Schema $schema) => EmployerForm::configure($schema))
-                        ->createOptionUsing(function (array $data) {
-                            $optionRecord = Employer::create($data);
-
-                            return $optionRecord->id;
-                        })
-                        // Configure edit action - https://filamentphp.com/docs/4.x/forms/select#editing-the-selected-option-in-a-modal
-                        ->editOptionModalHeading('Edit')
-                        ->editOptionForm(fn (Schema $schema) => EmployerForm::configure($schema))
-                        ->fillEditOptionActionFormUsing(function (string $state) {
-                            if (!$state) {
-                                return [];
-                            }
-
-                            $optionRecord = Employer::find($state);
-
-                            return EmployerResource::mutateTranslatableData($optionRecord, $optionRecord->attributesToArray());
-                        })
-                        ->updateOptionUsing(function (array $data, string $state) {
-                            $optionRecord = Employer::find($state);
-
-                            $optionRecord->update($data);
-
-                            return $optionRecord->id;
-                        })
-                        ->preload(),
-                    
-                /*
-                    
-                */
+                
+                Select::make('type')
+                    ->translateLabel()
+                    ->options([
+                        'full_time' => 'Full Time',
+                        'part_time' => 'Part Time',
+                        'contract' => 'Contract',
+                        'internship' => 'Internship',
+                    ])
+                    ->label('Job Type')
+                    ->required(),
+                Select::make('Employer_id')
+                    ->required()
+                    ->native(false)
+                    ->searchable()
+                    ->options(
+                        Employer::all()->pluck('name', 'id')
+                    )
+                    ->preload(),
 
                 // Non-Translated Fields
                 TextInput::make('url')
@@ -97,13 +66,6 @@ class JobForm
                     ->prefix('$')
                     ->required()
                     ->maxLength(255),
-                    /*
-                Select::make('Employer_id')
-                    ->relationship('Employer', 'name')
-                    ->searchable()
-                    ->preload()
-                    ->required(),
-                    */
                 Select::make('Tags_id')
                     ->relationship('Tags', 'name')
                     ->searchable()

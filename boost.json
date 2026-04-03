@@ -11,7 +11,5 @@
         "gemini",
         "vscode"
     ],
-    "guidelines": [
-        "filament/filament"
-    ]
+    "guidelines": true
 }

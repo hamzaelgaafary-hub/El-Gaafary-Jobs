@@ -57,4 +57,25 @@ class SiteController extends Controller
             'query' => $query,
         ]);
     }
+
+    //Employer's Profile Show to Users 
+    public function show(Request $request, $id)
+    {
+        $query = $request->query('q');        
+        //$employers = Employer::with(['job'])->findOrFail($id);
+
+         $employers = Employer::query()
+            ->when($query, fn ($q) => $q->where('name', 'LIKE', "%{$query}%"))
+            ->latest()
+            ->findOrFail($id);
+
+        //dd($employers);
+
+        return view('employers.show', [
+            'employer' => $employers,
+            'query' => $query,
+
+        ]);
+    }
+    
 }

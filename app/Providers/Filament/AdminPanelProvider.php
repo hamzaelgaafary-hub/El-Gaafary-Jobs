@@ -25,6 +25,12 @@ use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes;
 use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Illuminate\Support\Facades\Route;
+use Filament\Actions\Action;
+use Illuminate\Support\Facades\App;
+use Filament\Navigation\MenuItem;
+
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -35,10 +41,23 @@ class AdminPanelProvider extends PanelProvider
             ->id('Admin')
             ->path('Admin')
             ->login()
+            /*
+            FilamentLanguageSwitcherPlugin::make()
+                ->locales([
+                    ['code' => 'en', 'name' => 'English', 'flag' => 'gb'],
+                    ['code' => 'ar', 'name' => 'Arabic', 'flag' => 'ar'],
+            ])
+            
+            ->bootUsing(function () {
+                // Sync Filament's locale with mcamara's detected locale
+                $locale = session('locale', config('app.locale'));
+                App::setLocale($locale);
+            })
+            */
+            ->font('Tajawal')
             ->plugins([
             FilamentAstrotomicPlugin::make(),
             ])
-            //->font('Tajawal')
             ->colors([
                 'primary' => Color::Blue,
                 'tertiary' => Color::Green,

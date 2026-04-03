@@ -6,7 +6,7 @@
     </div>
 
     <div class="flex-1 flex flex-col">
-        <a href="#"
+        <a href="{{ route('employers.show', $job->employer->id) }}"
             class="self-start text-sm text-gray-400 transition-colors duration-300">{{ $job->Employer->name }}</a>
 
         <h3 class="font-bold text-xl mt-3 group-hover:text-blue-800">

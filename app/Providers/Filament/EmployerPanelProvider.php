@@ -29,7 +29,7 @@ class EmployerPanelProvider extends PanelProvider
         return $panel
             ->id('Employer')
             ->path('Employer')
-            ->login()
+            //->login()
             ->authGuard('web')
             ->plugins([
             FilamentAstrotomicPlugin::make(),
@@ -37,6 +37,11 @@ class EmployerPanelProvider extends PanelProvider
             //->profile()
             ->colors([
                 'primary' => Color::Amber,
+                'tertiary' => Color::Green,
+                'info' => Color::Cyan,
+                'success' => Color::Teal,
+                'warning' => Color::Orange,
+                'danger' => Color::Red,
             ])
             ->discoverResources(in: app_path('Filament/Employer/Resources'), for: 'App\Filament\Employer\Resources')
             ->discoverPages(in: app_path('Filament/Employer/Pages'), for: 'App\Filament\Employer\Pages')

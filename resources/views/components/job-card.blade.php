@@ -1,8 +1,11 @@
 @props(['job'])
 
 <x-panel class="flex flex-col text-center">
-    <div class="self-start text-sm">{{ $job->Employer->name }}</div>
-
+    <div class="py-8">
+        <a href="{{ route('employers.show', $job->employer->id) }}" class="self-start text-sm" target="_blank">
+            {{ $job->Employer->name }}
+        </a>
+    </div>
     <div class="py-8">
         <h3 class="group-hover:text-blue-800 text-xl font-bold transition-colors duration-300">
             <a href="{{ route('jobs.show', $job->id) }}" target="_blank">

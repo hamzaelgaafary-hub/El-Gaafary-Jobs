@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\File;
 use Illuminate\Validation\Rules\Password;
 
@@ -26,23 +27,26 @@ class RegisteredUserController extends Controller
         $userAttributes = $request->validate([
             'name' => ['required'],
             'email' => ['required', 'email', 'unique:users,email'],
+            'type' => ['required', Rule::in(['Employer', 'JobSeeker', 'Admin'])],
             'password' => ['required', 'confirmed', Password::min(6)],
-        ]);
-
-        $EmployerAttributes = $request->validate([
-            'Employer' => ['required'],
-            'logo' => ['required', File::types(['png', 'jpg', 'webp'])],
         ]);
 
         $user = User::create($userAttributes);
 
-        $logoPath = $request->logo->store('logos');
+        if ($userAttributes['type'] === 'Employer') {
+            $employerAttributes = $request->validate([
+                'Employer' => ['required'],
+                //'logo' => ['required', File::types(['png', 'jpg', 'webp'])],
+            ]);
 
-        $user->Employer()->create([
-            'name' => $EmployerAttributes['Employer'],
-            'logo' => $logoPath,
-        ]);
-        // dd($user, $logoPath);
+            //$logoPath = $request->logo->store('logos');
+
+            $user->Employer()->create([
+                'name' => $employerAttributes['Employer'],
+                //'logo' => $logoPath,
+            ]);
+        }
+
         Auth::login($user);
 
         return redirect('/');

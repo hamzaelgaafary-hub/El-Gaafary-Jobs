@@ -10,8 +10,8 @@ class SearchController extends Controller
     {
         $jobs = Job::query()
             ->with(['Employer', 'Tags'])
-            ->where('title', 'LIKE', '%'.request('q').'%')
-            ->get();
+            ->whereTranslationLike('title', '%'.request('q').'%')
+            ->cursorPaginate(7);
 
         return view('results', ['jobs' => $jobs]);
     }

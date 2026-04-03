@@ -14,6 +14,8 @@ class EmployerForm
             ->components([
                 TextInput::make('name')
                     ->required()
+                    ->unique()
+                    ->translateLabel()
                     ->maxLength(255),
                 TextInput::make('logo')
                     ->required()

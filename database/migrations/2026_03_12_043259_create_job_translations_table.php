@@ -15,11 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('job_id')->constrained()->cascadeOnDelete();
             $table->string('title')->nullable();
-            $table->string('location')->nullable();
             $table->text('description')->nullable();
             $table->string('locale')->index();
             $table->unique(['job_id', 'locale']);
-            $table->string('type')->default('full-time');
         });
     }
 

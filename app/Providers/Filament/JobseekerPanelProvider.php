@@ -29,9 +29,11 @@ class JobseekerPanelProvider extends PanelProvider
             ->login()
             ->colors([
                 'primary' => Color::Indigo,
-            ])
-            ->colors([
-                'primary' => Color::Amber,
+                'tertiary' => Color::Green,
+                'info' => Color::Cyan,
+                'success' => Color::Teal,
+                'warning' => Color::Orange,
+                'danger' => Color::Red,
             ])
             ->discoverResources(in: app_path('Filament/Jobseeker/Resources'), for: 'App\Filament\Jobseeker\Resources')
             ->discoverPages(in: app_path('Filament/Jobseeker/Pages'), for: 'App\Filament\Jobseeker\Pages')

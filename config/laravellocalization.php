@@ -1,6 +1,15 @@
 <?php
 
+
 return [
+
+    'urlsIgnored' => [
+            '/skipped',
+            '/livewire/*', // تجاهل مسارات التحديث الخاصة بـ Livewire
+            '/livewire/update',
+            '/livewire/upload-file',
+            '/_debugbar/*' // إذا كنت تستخدم Laravel Debugbar
+        ],
 
     // Uncomment the languages that your site supports - or add new ones.
     // These are sorted by the native name, which is the order you might show them in a language selector.
@@ -326,7 +335,7 @@ return [
     // If `useAcceptLanguageHeader` is true, then the first time
     // the locale will be determined from browser and redirect to that language.
     // After that, `hideDefaultLocaleInURL` behaves as usual.
-    'hideDefaultLocaleInURL' => false,
+    'hideDefaultLocaleInURL' => true,
 
     // If you want to display the locales in particular order in the language selector you should write the order here.
     //CAUTION: Please consider using the appropriate locale code otherwise it will not work

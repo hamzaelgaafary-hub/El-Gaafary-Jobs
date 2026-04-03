@@ -5,5 +5,6 @@
         @foreach($jobs as $job)
             <x-job-card-wide :$job />
         @endforeach
+        {{ $jobs->links() }}
     </div>
 </x-layout>
