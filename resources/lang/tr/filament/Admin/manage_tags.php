@@ -2,7 +2,7 @@
 
 return [
 
-    'navigation_label' => 'Manage Tags',
-    'title' => 'Manage Tags',
+    'navigation_label' => 'Etiketleri Yönet',
+    'title' => 'Etiketleri Yönet',
 
 ];

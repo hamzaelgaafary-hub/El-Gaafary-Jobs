@@ -31,8 +31,9 @@
             </div>
             @auth
                 <div class="space-x-6 font-bold flex">
-                    <a href="{{ auth()->user()->getDashboardUrl() }}" class="text-gray-50 hover:text-green-600">
-                        My Dashboard
+                    <a href="{{ Auth::User()->getDashboardUrl() }}"
+                        class="text-gray-50 hover:text-green-600 assignment_indicator">
+                        {{ __('layouts.my_dashboard') }}
                     </a>
 
                     <a href="/jobs/create" class="text-gray-300 hover:text-blue-600">{{ __('layouts.post_a_job') }}</a>
@@ -42,15 +43,17 @@
                         @csrf
                         @method('DELETE')
 
-                        <button>Log Out</button>
+                        <button>{{ __('layouts.log_out') }}</button>
                     </form>
                 </div>
             @endauth
 
             @guest
                 <div class="space-x-6 font-bold">
-                    <a href="/register" class="text-gray-100 hover:text-blue-600">{{ __('layouts.sign_up') }}</a>
-                    <a href="/login" class="text-gray-300 hover:text-blue-600">
+                    <a href="/register" class="text-gray-100 hover:text-blue-600">{{ __('layouts.sign_up') }}
+                    </a>
+                    <p></p>
+                    <a href="/login" class="text-gray-300 hover:text-blue-600 ">
                         {{ __('layouts.log_in') }}
                     </a>
                 </div>
@@ -68,7 +71,7 @@
                 </div>
             </div>
         </nav>
-        <main class="mt-10 max-w-[986px] mx-auto">
+        <main class="mt-10 max-w-246.5 mx-auto">
             {{ $slot }}
         </main>
     </div>

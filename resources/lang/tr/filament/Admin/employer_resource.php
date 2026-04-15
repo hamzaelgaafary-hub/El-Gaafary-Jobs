@@ -2,14 +2,15 @@
 
 return [
 
-    'created_at' => 'Created',
+    'created_at' => 'Oluşturuldu',
+    'description' => 'Açıklama',
     'logo' => 'Logo',
-    'model_label' => 'Employer',
-    'name' => 'Name',
-    'navigation_label' => 'Employers',
-    'plural_model_label' => 'Employers',
-    'updated_at' => 'Updated',
-    'user.name' => 'Name',
-    'user_id' => 'User',
+    'model_label' => 'İşveren',
+    'name' => 'İsim',
+    'navigation_label' => 'İşverenler',
+    'plural_model_label' => 'İşverenler',
+    'updated_at' => 'Güncellendi',
+    'user.name' => 'İsim',
+    'user_id' => 'Kullanıcı',
 
 ];

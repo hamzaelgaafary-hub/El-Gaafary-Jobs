@@ -2,7 +2,7 @@
 
 return [
 
-    'navigation_label' => 'Edit Employer Job',
-    'title' => 'Edit Employer Job',
+    'navigation_label' => 'إعدادات وظيفة صاحب العمل',
+    'title' => 'إعدادات وظيفة صاحب العمل',
 
 ];

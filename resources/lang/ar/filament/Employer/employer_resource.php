@@ -2,17 +2,17 @@
 
 return [
 
-    'created_at' => 'Created',
-    'description' => 'Description',
-    'logo' => 'Logo',
-    'model_label' => 'Employer',
-    'name' => 'Name',
-    'navigation_label' => 'My Profiles',
-    'plural_model_label' => 'Employers',
-    'updated_at' => 'Updated',
-    'user.name' => 'Name',
-    'user_id' => 'User',
-    'user_id_default' => 'User Default',
-    'website' => 'Website',
+    'created_at' => '   تم إنشاؤها في',
+    'description' => 'الوصف',
+    'logo' => 'لوجو',
+    'model_label' => 'صاحب العمل',
+    'name' => 'الاسم',
+    'navigation_label' => 'صاحب العمل',
+    'plural_model_label' => ' أصحاب العمل',
+    'updated_at' => 'تم التحديث في',
+    'user.name' => 'الاسم',
+    'user_id' => 'المستخدم',
+    'user_id_default' => 'المستخدم الافتراضي',
+    'website' => 'الموقع',
 
 ];

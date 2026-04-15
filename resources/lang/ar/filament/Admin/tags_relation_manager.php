@@ -2,7 +2,8 @@
 
 return [
 
-    'name' => 'Name',
-    'title' => 'Tags',
+    'name' => 'الإسم',
+    'navigation_label' => 'الوسومات',
+    'title' => 'الوسومات',
 
 ];

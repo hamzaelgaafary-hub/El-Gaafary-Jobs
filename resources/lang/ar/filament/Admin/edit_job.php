@@ -2,7 +2,7 @@
 
 return [
 
-    'navigation_label' => 'Edit Job',
-    'title' => 'Edit Job',
+    'navigation_label' => 'تعديل الوظيفة',
+    'title' => 'تعديل الوظيفة',
 
 ];

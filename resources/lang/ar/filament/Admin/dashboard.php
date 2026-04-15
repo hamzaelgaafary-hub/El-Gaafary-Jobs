@@ -2,7 +2,7 @@
 
 return [
 
-    'navigation_label' => 'Dashboard',
-    'title' => 'Dashboard',
+    'navigation_label' => 'لوحة التحكم',
+    'title' => 'لوحة التحكم',
 
 ];

@@ -3,6 +3,10 @@
 namespace App\Providers\Filament;
 
 use App\Http\Middleware\Checkrole;
+use App\Http\Middleware\SetLocale;
+use CraftForge\FilamentLanguageSwitcher\FilamentLanguageSwitcherPlugin;
+use Doriiaan\FilamentAstrotomic\FilamentAstrotomicPlugin;
+use Filament\Actions\Action;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -19,20 +23,9 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Doriiaan\FilamentAstrotomic\FilamentAstrotomicPlugin;
-use Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect;
 use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes;
 use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath;
-use Illuminate\Support\Facades\Auth;
-use CraftForge\FilamentLanguageSwitcher\FilamentLanguageSwitcherPlugin;
-use App\Models\User;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-use Illuminate\Support\Facades\Route;
-use Filament\Actions\Action;
-use Illuminate\Support\Facades\App;
-use Filament\View\PanelsRenderHook;
-use Filament\Navigation\MenuItem;
-use App\Http\Middleware\SetLocale;
+use Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect;
 
 
 class AdminPanelProvider extends PanelProvider
@@ -40,46 +33,36 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->default()
             ->id('Admin')
             ->path('Admin')
-
             ->login()
-            /*
-            FilamentLanguageSwitcherPlugin::make()
-                ->locales([
-                    ['code' => 'en', 'name' => 'English', 'flag' => 'gb'],
-                    ['code' => 'ar', 'name' => 'Arabic', 'flag' => 'ar'],
-            ])
             
-            ->bootUsing(function () {
-                // Sync Filament's locale with mcamara's detected locale
-                $locale = session('locale', config('app.locale'));
-                App::setLocale($locale);
-            })
-            */
-            
+            ->authGuard('web')
             ->font('Tajawal')
+            ->brandName('El Gaafary Jobs')
+            // ->brandLogo(asset('images/logo.svg'))
             ->plugins([
-           FilamentAstrotomicPlugin::make(),
-
-            // === LANGUAGE SWITCHER (CORRECTED) ===
-            FilamentLanguageSwitcherPlugin::make()
-                ->locales([
-                    ['code' => 'en', 'name' => 'English',     'flag' => 'gb'],
-                    ['code' => 'ar', 'name' => 'العربية',    'flag' => 'eg'],
-                    ['code' => 'tr', 'name' => 'Türkçe',    'flag' => 'tr'],
-                    // add more as needed
-                ])
-                ->showFlags(true)        
-                            // default = true, you can remove this line
-                ->renderHook(PanelsRenderHook::TOPBAR_END)   // ← Best UX for job portal (top-right)
-                // Other popular positions:
-                ->renderHook(PanelsRenderHook::USER_MENU_BEFORE)     // default
-                //->renderHook(PanelsRenderHook::SIDEBAR_FOOTER)
-                ->rememberLocale(days: 30),
+                FilamentAstrotomicPlugin::make(),
+                // craft plugin setup
+                // === LANGUAGE SWITCHER (CORRECTED) ===
+                FilamentLanguageSwitcherPlugin::make()
+                    // ->showOnAuthPages()
+                    ->locales([
+                        ['code' => 'en', 'name' => 'English',     'flag' => 'gb'],
+                        ['code' => 'ar', 'name' => 'العربية',    'flag' => 'eg'],
+                        ['code' => 'tr', 'name' => 'Türkçe',    'flag' => 'tr'],
+                        // add more as needed
+                    ])
+                    ->showFlags(true)
+                    ->rememberLocale(days: 30),
+                // craft plugin setup end
             ])
-            
+            ->userMenuItems([
+                'logout' => fn (Action $action) => $action
+                    ->label('Log out')
+                    ->icon('heroicon-o-arrow-left-on-rectangle')
+                    ->color('danger'),
+            ])
             ->colors([
                 'primary' => Color::Blue,
                 'tertiary' => Color::Green,
@@ -88,7 +71,7 @@ class AdminPanelProvider extends PanelProvider
                 'warning' => Color::Orange,
                 'danger' => Color::Red,
             ])
-            ->registration()
+            // ->registration()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
@@ -96,11 +79,11 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
+
                 // AccountWidget::class,
                 // FilamentInfoWidget::class,
             ])
             ->middleware([
-                SetLocale::class,
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
                 StartSession::class,
@@ -111,11 +94,14 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
                 Checkrole::class.':Admin',
+
+                SetLocale::class,
                 LocaleSessionRedirect::class,
                 LaravelLocalizationRoutes::class,
                 LaravelLocalizationViewPath::class,
+
             ])
-            
+
             ->authMiddleware([
                 Authenticate::class,
             ]);

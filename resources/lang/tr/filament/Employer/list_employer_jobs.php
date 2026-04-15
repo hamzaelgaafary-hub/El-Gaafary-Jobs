@@ -2,7 +2,7 @@
 
 return [
 
-    'navigation_label' => 'List Employer Jobs',
-    'title' => 'List Employer Jobs',
+    'navigation_label' => 'İşveren İş İlanları Listesi',
+    'title' => 'İşveren İş İlanları Listesi',
 
 ];

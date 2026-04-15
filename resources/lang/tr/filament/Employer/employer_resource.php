@@ -2,17 +2,17 @@
 
 return [
 
-    'created_at' => 'Created',
-    'description' => 'Description',
+    'created_at' => 'Oluşturulma tarihi',
+    'description' => 'Açıklama',
     'logo' => 'Logo',
-    'model_label' => 'Employer',
-    'name' => 'Name',
-    'navigation_label' => 'My Profiles',
-    'plural_model_label' => 'Employers',
-    'updated_at' => 'Updated',
-    'user.name' => 'Name',
-    'user_id' => 'User',
-    'user_id_default' => 'User Default',
-    'website' => 'Website',
+    'model_label' => 'İşveren',
+    'name' => 'İsim',
+    'navigation_label' => 'Profillerim',
+    'plural_model_label' => 'İşverenler',
+    'updated_at' => 'Güncelleme tarihi',
+    'user.name' => 'İsim',
+    'user_id' => 'Kullanıcı',
+    'user_id_default' => 'Kullanıcı Teması',
+    'website' => 'Web Sitesi',
 
 ];

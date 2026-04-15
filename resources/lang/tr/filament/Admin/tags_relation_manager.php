@@ -2,7 +2,7 @@
 
 return [
 
-    'name' => 'Name',
-    'title' => 'Tags',
+    'name' => 'isim',
+    'title' => 'Etiketler',
 
 ];

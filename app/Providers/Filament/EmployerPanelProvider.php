@@ -2,11 +2,16 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Resources\Employers\Pages\EditEmployer;
 use App\Http\Middleware\Checkrole;
+use App\Http\Middleware\SetLocale;
+use Filament\Navigation\MenuItem;
+use CraftForge\FilamentLanguageSwitcher\FilamentLanguageSwitcherPlugin;
+use Doriiaan\FilamentAstrotomic\FilamentAstrotomicPlugin;
 use Filament\Http\Middleware\Authenticate;
-use Illuminate\Session\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationItem;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -17,10 +22,15 @@ use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
+use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
+use Filament\Actions\Action;
+//use Illuminate\Container\Attributes\Auth;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Filament\Navigation\MenuItem;
-use Doriiaan\FilamentAstrotomic\FilamentAstrotomicPlugin;
+use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes;
+use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath;
+use Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect;
+
 
 class EmployerPanelProvider extends PanelProvider
 {
@@ -29,12 +39,42 @@ class EmployerPanelProvider extends PanelProvider
         return $panel
             ->id('Employer')
             ->path('Employer')
-            //->login()
+            ->default()
+            ->login()
             ->authGuard('web')
-            ->plugins([
-            FilamentAstrotomicPlugin::make(),
+            // ->profile(EditEmployer::class) 
+            ->brandName('El Gaafary Jobs')
+            // ->brandLogo(asset('images/logo.svg'))
+            ->navigationItems([
+                NavigationItem::make('Home Page')
+                    ->url('/', shouldOpenInNewTab: false)
+                    ->icon('heroicon-o-home')
+                    // ->group('روابط سريعة') // اختياري لعمل Heading فوق الرابط
+                    ->sort(1),
             ])
-            //->profile()
+            ->userMenuItems([
+                'logout' => fn (Action $action) => $action
+                    ->label('Log out')
+                    ->icon('heroicon-o-arrow-left-on-rectangle')
+                    ->color('danger'),
+            ])
+            
+            ->plugins([
+                FilamentAstrotomicPlugin::make(),
+                // craft plugin setup
+                // === LANGUAGE SWITCHER (CORRECTED) ===
+                FilamentLanguageSwitcherPlugin::make()
+                    ->showOnAuthPages()
+                    ->locales([
+                        ['code' => 'en', 'name' => 'English',     'flag' => 'gb'],
+                        ['code' => 'ar', 'name' => 'العربية',    'flag' => 'eg'],
+                        ['code' => 'tr', 'name' => 'Türkçe',    'flag' => 'tr'],
+                        // add more as needed
+                    ])
+                    ->showFlags(true)
+                    ->rememberLocale(days: 30),
+                // craft plugin setup end
+            ])
             ->colors([
                 'primary' => Color::Amber,
                 'tertiary' => Color::Green,
@@ -65,10 +105,15 @@ class EmployerPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
                 Checkrole::class.':Employer',
 
+                SetLocale::class,
+
+                LocaleSessionRedirect::class,
+                LaravelLocalizationRoutes::class,
+                LaravelLocalizationViewPath::class,
+
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ])
-            ;
+            ]);
     }
 }

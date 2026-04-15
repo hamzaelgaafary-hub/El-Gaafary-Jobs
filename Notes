@@ -1,32 +1,16 @@
-1- added Astratomic to Filament but need some testing and add to other pages in Admin panel and other panels 
-2- need to make choose lang in Filament interface 
+1- added Astratomic to Filament but need some testing and add to other pages in Admin panel and other panels  => Done
+2- need to make choose lang in Filament interface => done
+3- test and debuging Translate pages and confilect malti-panels => done 'by middleware only without use canAcccessPanel'
 
-
-model
-public $timestamps = false; 
-    
-    protected $fillable = [
-        'locale',
-        'name',
-        'description',
-    ];
-    protected $table = 'employer_translations';
-
-
- Schema::create('employer_translations', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('employer_id')->constrained()->cascadeOnDelete();
-            $table->string('locale');
-            $table->string('name')->nullable();
-            $table->text('description')->nullable();
-            $table->unique(['employer_id', 'locale']);
-        });
+4- need to add go to Home page in  login page or redirct logout to home page directly => done
+            done by using Documentation of Filament ti take action in $action in panel provider 
+                and make LogoutResponse in auth file in pages file in panel 
+            then call it from rigester fn in appserviceproider
 
 
 
-use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
-use Astrotomic\Translatable\Translatable;
-use App\Models\Employer_translation;
-
-class Employer extends Model implements TranslatableContract
-
+php artisan config:clear
+php artisan cache:clear
+php artisan route:clear
+php artisan optimize:clear
+composer dump-autoload

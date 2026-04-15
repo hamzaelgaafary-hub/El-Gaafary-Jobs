@@ -4,11 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Session;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Symfony\Component\HttpFoundation\Response;
 
 class SetLocale
 {
@@ -19,14 +17,46 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $locale = Session::get('locale')
-        ?? auth::user()?->locale
-        ?? config('app.fallback_locale');
+        $defaultLocale = config('app.locale', 'en');
 
-        if (in_array($locale, config('filament-localization.locales'))) {
-            App::setLocale($locale);
-            LaravelLocalization::setLocale($locale); // Mcamara helper
+        $locale = $defaultLocale;
+
+        // dd($request->session()->get('locale'));
+        // dd($request->cookie('filament_language_switcher_locale'));
+        // dd($request->cookie('locale'));
+        // dd($defaultLocale);
+
+        if ($request->hasSession()) {
+            $locale = $request->session()->get('locale', $defaultLocale);
+
+            if (! $locale) {
+                $locale = $request->cookie('filament_language_switcher_locale')
+                    ?: $request->cookie('locale')
+                    ?: $defaultLocale;
+
+                $request->session()->put('locale', $locale);
+            }
+        } else {
+            $locale = $request->cookie('filament_language_switcher_locale')
+                ?: $request->cookie('locale')
+                ?: $defaultLocale;
         }
+
+        $supportedLocales = config('filament-localization.locales', ['en', 'ar', 'tr']);
+
+        if (! in_array($locale, $supportedLocales, true)) {
+            $locale = config('app.fallback_locale', $defaultLocale);
+        }
+        // dd($defaultLocale);
+
+        App::setLocale($locale);
+
+        if (class_exists(LaravelLocalization::class)) {
+            LaravelLocalization::setLocale($locale);
+        }
+        // dd($locale);
+
+        $request->session()?->put('locale', $locale);
 
         return $next($request);
     }

@@ -119,3 +119,18 @@ it('shows created records on resource index pages', function (): void {
         ->assertOk()
         ->assertSee('ListJobTest');
 });
+
+it('switches locale through filament-language-switcher route and keeps locale in session', function (): void {
+    $this->get(route('filament-language-switcher.switch', ['code' => 'ar']))
+        ->assertRedirect();
+
+    $this->assertEquals('ar', session('locale'));
+    $this->assertNotNull(cookie('filament_language_switcher_locale'));
+
+    $this->actingAs($this->panelUser)
+        ->withSession(['locale' => 'ar'])
+        ->get(route('filament.Admin.pages.dashboard'))
+        ->assertOk();
+
+    $this->assertEquals('ar', app()->getLocale());
+});

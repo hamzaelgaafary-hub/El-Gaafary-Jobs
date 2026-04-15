@@ -2,18 +2,17 @@
 
 namespace App\Providers;
 
+use App\Filament\EmployerJobs\Pages\Auth\LogoutResponse;
+use Filament\Auth\Http\Responses\Contracts\LogoutResponse as LogoutResponseContract;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
-use Livewire\Livewire;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Auth;
-
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-use \CraftForge\FilamentLanguageSwitcher\Events\LocaleChanged;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Support\ServiceProvider;
+use CraftForge\FilamentLanguageSwitcher\Events\LocaleChanged;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -23,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(LogoutResponseContract::class, LogoutResponse::class);
     }
 
     /**
@@ -31,30 +30,34 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        /* craft plugin setup */
+        // event listener for FilamentLanguageSwitcherPlugin's to update locale in session, user model, and Laravel app
+        Event::listen(LocaleChanged::class, function (LocaleChanged $event) {
 
-    //event listener for FilamentLanguageSwitcherPlugin's to update locale in session, user model, and Laravel app
-    Event::listen(LocaleChanged::class, function (LocaleChanged $event) {
-        
-        $newLocale = $event->newLocale;
-        //dd($newLocale);
+            $newLocale = $event->newLocale;
+            // dd($event, $newLocale);
 
-        // Save to session
-        Session::put('locale', $newLocale);
+            // Save to session
+            Session::put('locale', $newLocale);
 
-        // Save to user (if logged in)
-        if (Auth::check()) {
-            Auth::user()->update(['locale' => $newLocale]);
-        }
+            // Save to user (if logged in)
+            if (Auth::check()) {
+                Auth::user()->update(['locale' => $newLocale]);
+            }
+            // dd($newLocale);
 
-        // Set Laravel app locale
-        App::setLocale($newLocale);
+            // Set Laravel app locale
+            App::setLocale($newLocale);
 
-        // Set Mcamara / laravel-localization
-        LaravelLocalization::setLocale($newLocale);
-    });
-        Model::unguard();
+            // Set Mcamara / laravel-localization
+            LaravelLocalization::setLocale($newLocale);
+            // dd('Locale changed to: '.$newLocale);
+
+        });
+
+        // ////// craft plugin setup end
+        // Model::unguard();
         Paginator::useTailwind();
-        //dd(User::all());
 
     }
 }

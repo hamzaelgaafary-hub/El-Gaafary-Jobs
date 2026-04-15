@@ -2,7 +2,7 @@
 
 return [
 
-    'navigation_label' => 'List Jobs',
-    'title' => 'List Jobs',
+    'navigation_label' => 'قائمة الوظائف',
+    'title' => 'قائمة الوظائف',
 
 ];

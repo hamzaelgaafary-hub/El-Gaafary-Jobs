@@ -2,7 +2,7 @@
 
 return [
 
-    'navigation_label' => 'Edit User',
-    'title' => 'Edit User',
+    'navigation_label' => 'تعديل بيانات المستخدم',
+    'title' => 'تعديل بيانات المستخدم',
 
 ];

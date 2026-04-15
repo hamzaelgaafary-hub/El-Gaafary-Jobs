@@ -3,9 +3,10 @@
 return [
     'jobs' => ' الوظائف ',
     'about' => ' حول الموقع',
+    'my_dashboard' => ' لوحة التحكم ',
     'employers' => ' أصحاب العمل ',
     'post_a_job' => ' نشر وظيفة ',
-    'log_in' => ' تسجيل الدخول ',
+    'log_in' => ' تسجيل الدخول',
     'sign_up' => 'التسجيل لأول مره ',
     'forgot_password' => 'نسيت كلمة المرور',
     'reset_password' => 'إعادة تعيين كلمة المرور',
@@ -24,9 +25,9 @@ return [
     'employer_name' => 'اسم الموظف',
     'employer_description' => 'وصف الشركة',
     'employer_logo' => 'شعار الشركة',
-    'employer_webstie'=>'موقع الشركة',
+    'employer_webstie' => 'موقع الشركة',
     'employer_created_at' => 'تاريخ الإنشاء',
     'employer_updated_at' => 'تاريخ التحديث',
     'select_type' => 'اختر نوع',
     'publish_job' => 'نشر الوظيفة',
-    ];
+];

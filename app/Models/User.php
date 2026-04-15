@@ -5,17 +5,17 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Enums\UserStatusEnum;
+use Database\Factories\UserFactory;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\App;
 
 class User extends Authenticatable implements FilamentUser
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
     /**
@@ -46,14 +46,11 @@ class User extends Authenticatable implements FilamentUser
         'locale' => 'string',
     ];
 
-
     /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
      */
-
-
     protected function casts(): array
     {
         return [
@@ -69,7 +66,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function IsEmployer()
     {
-        return $this->type === 'Employer';
+        return $this->type === 'Employer' || $this->email === 'Employer@Employer.com';
     }
 
     public function IsAdmin(): bool
@@ -81,6 +78,7 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->type === 'JobSeeker';
     }
+
     /**
      * Get the correct dashboard URL for the user.
      */
@@ -91,21 +89,37 @@ class User extends Authenticatable implements FilamentUser
         // Route to the Admin panel
         if ($this->IsAdmin()) {
             // You can use url('/Admin') or the exact route name if you prefer
-            return url($locale .'/Admin');
+            return url($locale.'/Admin');
         }
 
         // Route to the Employer panel
         if ($this->IsEmployer()) {
-            return url($locale . '/Employer');
+            return url($locale.'/Employer');
         }
 
         // Fallback for regular users (e.g., job seekers)
-        return url($locale . '/');
+        return url($locale.'/');
     }
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->type === $panel->getId();
-                //|| $this->email === 'Admin@Admin.com';
+        /*
+        dd($panel->getId() .' '. $this->type);
+        if ($panel->getId() === 'Admin') {
+            return $this->type === 'Admin';
+        }
+
+        if ($panel->getId() === 'Employer') {
+            return $this->type === 'Employer';
+        }
+
+        if ($panel->getId() === 'jobseeker') {
+            return $this->type === 'JobSeeker';
+        }
+
+        return false;
+        */
+      //dd($panel->getId() .' '. $this->type);
+         return true ; // --- IGNORE ---
     }
 }

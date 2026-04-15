@@ -3,6 +3,7 @@
 return [
     'jobs' => 'Jobs',
     'about' => 'About',
+    'my_dashboard' => 'My Dashboard',
     'employers' => 'Employers',
     'post_a_job' => 'Post a Job',
     'log_in' => 'Log In',
@@ -24,10 +25,10 @@ return [
     'employer_name' => 'Employer name',
     'employer_description' => 'Company Description',
     'employer_logo' => 'Company Logo',
-    'employer_webstie'=>'Company WebStie',
+    'employer_webstie' => 'Company WebStie',
     'employer_created_at' => 'Created At',
     'employer_updated_at' => 'Updated At',
     'select_type' => 'Select a type',
     'publish_job' => 'Publish Job',
-    
+
 ];

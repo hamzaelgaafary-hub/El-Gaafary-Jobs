@@ -2,7 +2,7 @@
 
 return [
 
-    'navigation_label' => 'List Employers',
-    'title' => 'List Employers',
+    'navigation_label' => 'İşverenleri Listele',
+    'title' => 'İşverenleri Listele',
 
 ];
