@@ -4,7 +4,12 @@
 
 **Multi-Role Job Board Platform built with Laravel 12 + Filament v4**
 
-[Overview](https://www.google.com/search?q=%23-overview) · [Features](https://www.google.com/search?q=%23-features) · [Tech Stack](https://www.google.com/search?q=%23-tech-stack) · [Technical-Challenges](https://www.google.com/search?q=%23-technical-challenges--solutions) · [Installation](https://www.google.com/search?q=%23-installation--setup)
+![Laravel](https://img.shields.io/badge/Laravel-v12-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-8.4-777BB4?style=for-the-badge&logo=php&logoColor=white)
+![Filament](https://img.shields.io/badge/Filament-v4-FDAE4B?style=for-the-badge)
+![Livewire](https://img.shields.io/badge/Livewire-v3-FB70A9?style=for-the-badge&logo=livewire&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-v4-38BDF8?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
 \</div\>
 
