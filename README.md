@@ -1,6 +1,6 @@
 # El-Gaafary Jobs
 
-\<div align="center"\>
+<div align="center">
 
 **Multi-Role Job Board Platform built with Laravel 12 + Filament v4**
 
@@ -11,18 +11,18 @@
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-v4-38BDF8?style=for-the-badge&logo=tailwindcss&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-\</div\>
+<div\>
 
 ---
 
 ## Overview
 
-**El-Gaafary Jobs** is a comprehensive job management and recruitment web platform. It operates on a robust **Multi-Panel** architecture powered by **Filament v4**, featuring independent dashboards for: Global Administrators (**Admin**), Hiring Managers (**Employer**), and Job Seekers (**Employee**), with full multilingual support (Arabic & English).
+**El-Gaafary Jobs** is a comprehensive job management and recruitment web platform. It operates on a robust **Multi-Panel** architecture powered by **Filament v4**, featuring independent dashboards for: Global Administrators (**Admin**), Hiring Managers (**Employer**), and Job Seekers (**Job Seeker**), with full multilingual support (Arabic & English).
 
 **Functional Scope:**
 
 - **Employers:** Post and manage job listings efficiently.
-- **Employees:** Search, apply for vacancies, and track application status.
+- **Job Seekers:** Search, apply for vacancies, and track application status.
 - **Admins:** Full oversight of platform operations and user management.
 - **UI/UX:** Interactive interface with real-time language switching.
 
@@ -32,7 +32,7 @@
 
 ### Authentication & Authorization
 
-- Independent login systems for each panel (Admin / Employer / Employee).
+- Independent login systems for each panel (Admin / Employer / Job Seeker).
 - Custom `LogoutResponse` to redirect users directly to the homepage instead of the login screen.
 - Logout logic registered via `AppServiceProvider` utilizing the Filament `$action` API.
 
@@ -83,15 +83,15 @@ Filament provides a production-ready multi-panel system with built-in authentica
 
 ---
 
-## ⚡ Technical Challenges & Solutions
+## Technical Challenges & Solutions
 
-### 1\. Locale Conflicts Across Multiple Panels
+### 1. Locale Conflicts Across Multiple Panels
 
 **Challenge:** Using `mcamara/laravel-localization` across multiple Filament panels caused the locale selected in one panel to unexpectedly affect others, leading to middleware stack conflicts.
 
 **Solution:** Implemented custom Middleware instead of relying solely on `canAccessPanel()`. This allowed for granular control over locale application for each panel independently, ensuring zero interference.
 
-### 2\. Customizing Logout Redirects
+### 2. Customizing Logout Redirects
 
 **Challenge:** By default, Filament redirects users to the login page upon logout, whereas this project required a redirect to the public homepage.
 
@@ -112,9 +112,10 @@ public function register(): void
         \App\Filament\Responses\LogoutResponse::class
     );
 }
+
 ```
 
-### 3\. Cache Management Pipeline
+### 3. Cache Management Pipeline
 
 **Challenge:** Changes in configurations, routes, or service providers often failed to reflect immediately due to aggressive caching.
 
@@ -126,9 +127,10 @@ php artisan cache:clear
 php artisan route:clear
 php artisan optimize:clear
 composer dump-autoload
+
 ```
 
-### 4\. Integrating Astrotomic with Filament
+### 4. Integrating Astrotomic with Filament
 
 **Challenge:** The `Astrotomic/laravel-translatable` library requires specific configuration to work seamlessly with Filament forms and resources.
 
@@ -136,7 +138,7 @@ composer dump-autoload
 
 ---
 
-## 🏗 Project Structure
+## Project Structure
 
 ```
 El-Gaafary-Jobs/
@@ -196,6 +198,6 @@ This is an open-source project licensed under the [MIT License](https://opensour
 
 ---
 
-\<div align="center"\>
-Built with using \<strong\>Laravel 12\</strong\> + \<strong\>Filament v4\</strong\>
-\</div\>
+<div align="center">
+Built with using <strong>Laravel 12 <strong\> + <strong> Filament v4 <strong\>
+<div\>
