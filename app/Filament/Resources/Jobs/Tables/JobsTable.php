@@ -92,7 +92,9 @@ class JobsTable
                         'contract' => 'Contract',
                         'internship' => 'Internship',
                     ])
-                    ->label('Job Type'),
+                    ->label('Job Type')
+                    ->searchable(),
+                
                 Filter::make('created_at')
                     ->schema([
                         DatePicker::make('created_from'),
