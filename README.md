@@ -11,7 +11,7 @@
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-v4-38BDF8?style=for-the-badge&logo=tailwindcss&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-<div\>
+</div>
 
 ---
 
@@ -142,6 +142,7 @@ composer dump-autoload
 
 ```
 El-Gaafary-Jobs/
+
 ├── app/
 │   ├── Filament/           # Panels, Resources, Widgets
 │   ├── Models/             # Eloquent Models (PSR-4 Compliant)
@@ -158,6 +159,7 @@ El-Gaafary-Jobs/
 │   ├── web.php             # Web Routes
 │   └── console.php         # CLI Commands
 └── tests/                  # Pest Feature & Unit Tests
+
 ```
 
 ---
