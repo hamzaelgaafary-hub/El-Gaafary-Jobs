@@ -40,6 +40,5 @@ Route::group([
     // directory of employers and their job Seekers
     Route::get('/employers', [SiteController::class, 'directory']);
     Route::get('/employers/{employer}', [SiteController::class, 'show'])->name('employers.show');
-    Route::delete('/logout', [SessionController::class, 'destroy'])->middleware('auth');
-
+    Route::delete('/logout', [SessionController::class, 'destroy'])->middleware('auth');    
 });

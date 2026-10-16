@@ -13,10 +13,12 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 use CraftForge\FilamentLanguageSwitcher\Events\LocaleChanged;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Illuminate\Routing\UrlGenerator;
 
 
 class AppServiceProvider extends ServiceProvider
 {
+
     /**
      * Register any application services.
      */
@@ -28,8 +30,12 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    public function boot(UrlGenerator $url): void
     {
+
+         if (env('APP_ENV') === 'production') {
+            $url->forceScheme('https');
+        }
         /* craft plugin setup */
         // event listener for FilamentLanguageSwitcherPlugin's to update locale in session, user model, and Laravel app
         Event::listen(LocaleChanged::class, function (LocaleChanged $event) {

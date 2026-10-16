@@ -8,6 +8,7 @@
     "require": {
         "php": "^8.2",
         "bezhansalleh/filament-language-switch": "^4.2",
+        "cloudinary-labs/cloudinary-laravel": "^3.0",
         "craft-forge/filament-language-switcher": "^1.2",
         "doriiaan/filament-astrotomic": "^1.0",
         "filament/filament": "~4.0",
